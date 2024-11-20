@@ -133,16 +133,56 @@ const products = [
 ];
 
 //Hämtar specifik UL tagg från HTML
-const productListUl = document.querySelector('#product-list')
+const productListUl = document.querySelector('#product-list');
 
+const productCart = document.querySelector('#cart');
 
 // funktionen ansvarar för att visa betyg på produkterna, börjar med att skapa en tom strän 
 function getRatingHtml(rating) {
     let html = '';
-    for (let i = 0; i < rating; i++){
+    for (let i = 0; i < rating; i++){ 
         html += `<span>🎵</span>`
     }
     return html;
+}
+
+function increaseProductCount(event) {
+    const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
+    console.log('clicked on button with id', productId);
+
+    //letar rätt på produkten i arrayen som har id 
+    const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
+    console.log('found product at index:', foundProductIndex);
+
+    products[foundProductIndex].amount += 1;
+
+    console.log(products[foundProductIndex]);
+
+    //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
+    document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
+
+    printCartProduct();
+
+}
+
+function decreaseProductCount(event) {
+    console.log("click on decrease");
+    const productId = (event.target.id.replace('decrease-', '')); //byter ut strängarna i när man trycker på knappen mot '' 
+    console.log('clicked on button with id', productId);
+
+    const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
+    console.log('found product at index:', foundProductIndex);
+
+    // En if sats som förklarar att om värdetr i inputen är större än 0 så ska värdet minskas med -1
+    if (products[foundProductIndex].amount > 0) {
+        products[foundProductIndex].amount -= 1;
+    } else { // Om värdet i inputen inte är större än noll ska detta visas alert med antalet är 0
+        alert("Antal är redan 0")
+    }
+    document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
+
+    printCartProduct();
+
 }
 
 function printProductList() {
@@ -165,57 +205,110 @@ function printProductList() {
     });
     //skapar variablar för alla minus och plus knappar 
     //Alla knappar behöver ett clickevent och en funktion för att något ska ske
-    const increaseButtons = document.querySelectorAll('.increase'); 
+    const increaseButtons = document.querySelectorAll('button.increase'); 
     increaseButtons.forEach(button => {
-    addEventListener('click', increaseProductCount)
+    button.addEventListener('click', increaseProductCount)
     });
 
             // Lägger till eventlyssnare för "decrease"-knappar
-    const decreaseButtons = document.querySelectorAll('.decrease');
+    const decreaseButtons = document.querySelectorAll('button.decrease');
+    console.log(decreaseButtons);
     decreaseButtons.forEach(button => {
     button.addEventListener('click', decreaseProductCount);
     });
 
+    
 };
-
+//printar/uppdaterar listan med alla produkter på nytt
 printProductList ();
 
 
 
-function increaseProductCount(event) {
-    const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
-    console.log('clicked on button with id', productId);
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////Varukorgssammanställning////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
-    //letar rätt på produkten i arrayen som har id 
-    const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-    console.log('found product at index:', foundProductIndex);
 
-    if (foundProductIndex === -1) {
-        console.error('Produkten existerar inte');
-        return;
-    }
+function printCartProduct() {
+    productCart.innerHTML = '';
+    products.forEach(product => {
+        if (product.amount> 0) {
+            productCart.innerHTML += `
+            <li class="added-product"
+                <figure>
+                    <img class="added-product-img" src="${product.img.url}">
+                </figure>
+                <div>
+                    <p>${product.name}</p>
+                </div>
+                    <p>${product.price} kr/st</p>
+                <label>
+                    <button class="increase" id="increase-${product.id}">▲</button>
+                    <span>${product.amount}</span>
+                    <button class="decrease" id="decrease-${product.id}">▼</button>
+                </label>
+                <p>Delsumman</p>
+            </li>
+            `;
+            }
+        });
 
-    products[foundProductIndex].amount += 1;
 
-    console.log(products[foundProductIndex]);
-
-    //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
-    document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
+        const increaseButtons = document.querySelectorAll('button.increase'); 
+        increaseButtons.forEach(button => {
+        button.addEventListener('click', increaseProductCount)
+        });
+    
+                // Lägger till eventlyssnare för "decrease"-knappar
+        const decreaseButtons = document.querySelectorAll('button.decrease');
+        console.log(decreaseButtons);
+        decreaseButtons.forEach(button => {
+        button.addEventListener('click', decreaseProductCount);
+        });
 }
 
-function decreaseProductCount(event) {
-    const productId = (event.target.id.replace('decrease-', '')); //byter ut strängarna i när man trycker på knappen mot '' 
-    console.log('clicked on button with id', productId);
 
-    const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-    console.log('found product at index:', foundProductIndex);
 
-    if (products[foundProductIndex].amount > 0) {
-        products[foundProductIndex].amount -= 1;
-    } else {
-        console.log('mängden är redan 0');
-    }
 
-    document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////Filter///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+const btnPrice = document.querySelector('#sort-price');
+
+const btnName = document.querySelector('#sort-name');
+
+const btnRating = document.querySelector('#sort-rating');
+
+const btnCategory = document.querySelector('#sort-category');
+
+btnPrice.addEventListener('click', sortOnPrice);
+
+function sortOnPrice() {
+    console.log ("Pris är vald");
 }
 
+btnName.addEventListener('click', sortOnName);
+
+function sortOnName() {
+    console.log ("Namn är vald");
+}
+
+btnRating.addEventListener('click', sortOnRating);
+function sortOnRating() {
+    console.log ("Betyg är vald");
+}
+
+btnCategory.addEventListener('click', sortOnCategory);
+function sortOnCategory() {
+    console.log ("Kategori är vald");
+}

@@ -21,7 +21,7 @@
                     <p>Plektrum för perfekta ackord</p>
                 </section>
             <button class="shopping-cart-btn">
-                <span class="material-symbols-outlined">shopping_cart</span>
+                <a class="material-symbols-outlined" href="#shopping-cart-id">shopping_cart</a>
             </button>
     </header>
 
@@ -29,7 +29,7 @@
         <section class="about-us">
             <div>
                 <h2>Vilka är vi?</h2>
-                <p>Henkas Plektrumfabrik grundades av Henrik "Henka" Andersson i Göteborg på 90-talet, med en passion för att skapa plektrum av högsta kvalitet. Vi tillverkar handgjorda plektrum som ger både nybörjare och proffs bättre kontroll och uttryck i sitt spel. Varje plektrum är noggrant utformat och tillverkat med omsorg för detaljer, för att ge en unik spelupplevelse.</p>
+                <p>Henkas Plektrumfabrik grundades av Henrik "Henka" Nyåker i de värmländska skogarna på 80-talet, med en passion för att skapa plektrum av högsta kvalitet. Vi tillverkar handgjorda plektrum som ger både nybörjare och proffs bättre kontroll och uttryck i sitt spel. Varje plektrum är noggrant utformat och tillverkat med omsorg för detaljer, för att ge en unik spelupplevelse.</p>
                 <p>Vår filosofi är enkel: att skapa plektrum som inte bara förbättrar ljudet, utan också ger en känsla av personlig kontakt mellan musiker och instrument. Vi använder endast de finaste materialen för att säkerställa hållbarhet och bästa möjliga ljudkvalitet. Oavsett om du spelar akustisk gitarr, elgitarr eller bas, har vi plektrum som passar just ditt spel.</p> 
                 <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra tekniker och design för att möta de växande kraven från musiker världen över. Från de första prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att fortsätta erbjuda produkter som inspirerar och levererar resultat.s</p> 
             </div>
@@ -40,27 +40,45 @@
         <div>
             <fieldset class="sort">
                 <legend>Sortera på</legend>
-                <label> Pris stigade:
-                    <input type="radio">
+                <label> Pris:
+                    <input type="radio" name="radio-buttons-sorting" id="sort-price">
                 </label>
                 <label> Namn:
-                    <input type="radio">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-name">
                 </label>
                 <label> Betyg:
-                    <input type="radio">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-rating">
                 </label>
                 <label> Kategori:
-                    <input type="radio">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-category">
                 </label>
             </fieldset>
         </div>
         <ul id="product-list">
         </ul>
-        <section class="shopping-cart">
+
+
+
+
+
+
+
+        <section class="shopping-cart" id="shopping-cart-id">
             <h2>Varukorgssammantställning</h2>
-            <div>
-            </div>
+            <ul id="cart">
+            </ul>
         </section>
+
+
+
+
+
+
+
+
+
+
+        
         <section class="contact-details">
             <h2>Kunduppgifter</h2>
             <form>
