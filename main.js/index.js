@@ -168,10 +168,8 @@ function increaseProductCount(event) {
 function decreaseProductCount(event) {
     console.log("click on decrease");
     const productId = (event.target.id.replace('decrease-', '')); //byter ut strängarna i när man trycker på knappen mot '' 
-    console.log('clicked on button with id', productId);
 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-    console.log('found product at index:', foundProductIndex);
 
     // En if sats som förklarar att om värdetr i inputen är större än 0 så ska värdet minskas med -1
     if (products[foundProductIndex].amount > 0) {
@@ -212,11 +210,10 @@ function printProductList() {
 
             // Lägger till eventlyssnare för "decrease"-knappar
     const decreaseButtons = document.querySelectorAll('button.decrease');
-    console.log(decreaseButtons);
     decreaseButtons.forEach(button => {
     button.addEventListener('click', decreaseProductCount);
     });
-
+    
     
 };
 //printar/uppdaterar listan med alla produkter på nytt
@@ -234,6 +231,12 @@ function printCartProduct() {
     products.forEach(product => {
         if (product.amount> 0) {
             productCart.innerHTML += `
+            <li class="added-product-header">
+            <p>Produkt</p>
+            <p>Styckpris</p>
+            <p>Antal valda</p>
+            <p>Delsumman</p>
+            </li>
             <li class="added-product"
                 <figure>
                     <img class="added-product-img" src="${product.img.url}">
@@ -247,7 +250,7 @@ function printCartProduct() {
                     <span>${product.amount}</span>
                     <button class="decrease" id="decrease-${product.id}">▼</button>
                 </label>
-                <p>Delsumman</p>
+                <p>${product.amount * product.price} kr</p>
             </li>
             `;
             }
