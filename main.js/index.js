@@ -134,8 +134,29 @@ const products = [
 
 //Hämtar specifik UL tagg från HTML
 const productListUl = document.querySelector('#product-list');
-
 const productCart = document.querySelector('#cart');
+
+
+///Variablar för datum////
+const today = new Date();
+const isFriday = today.getDay() === 5; 
+const isMonday = today.getDay() === 1;
+const currentHour = today.getHours();
+let priceIncreased = addedWeekendPrice();
+
+if (today.getDay() === 4 ) { /////////////testar att det är korrekt
+    console.log("idag är det torsdag");
+} else {
+    console.log('idag är det inte torsdag');
+}
+
+function addedWeekendPrice() {
+    if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) { // if-satsen förklarar att om variabel Isfriday(fredag) och klockan är mer eller lika med 15:00 ELLLER(||) variabel isMonday(måndag) och klockan är mindre än 03:00 så---> 
+        console.log("Nu är det helg");
+        return 1.15
+    }
+    return 1;
+} 
 
 // funktionen ansvarar för att visa betyg på produkterna, börjar med att skapa en tom strän 
 function getRatingHtml(rating) {
@@ -182,16 +203,22 @@ function decreaseProductCount(event) {
     printCartProduct();
 
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////Funktion som visar alla produkter på hemsidan////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function printProductList() {
+
+
     productListUl.innerHTML = '';
+
     //Bygger ihop produkternas behållare där de hämtar värden från objekten i arrayen och gör en funktion av det för att printa ut/uppdatera sidan på nytt
+    //Math.round för att runda upp priet vid helgpåslag
     products.forEach(product => {
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
             <img class="product-img" src="${product.img.url}">
-            <p>${product.price} kr/st</p>
+            <p>${Math.round(product.price * priceIncreased)} kr/st</p> 
             <p>betyg:${getRatingHtml(product.rating)}</p>
             <label>
                 <button class="decrease" id="decrease-${product.id}">-</button>
@@ -201,6 +228,8 @@ function printProductList() {
         </li>
         `;
     });
+
+
     //skapar variablar för alla minus och plus knappar 
     //Alla knappar behöver ett clickevent och en funktion för att något ska ske
     const increaseButtons = document.querySelectorAll('button.increase'); 
@@ -208,7 +237,7 @@ function printProductList() {
     button.addEventListener('click', increaseProductCount)
     });
 
-            // Lägger till eventlyssnare för "decrease"-knappar
+    // Lägger till eventlyssnare för "decrease"-knappar
     const decreaseButtons = document.querySelectorAll('button.decrease');
     decreaseButtons.forEach(button => {
     button.addEventListener('click', decreaseProductCount);
@@ -216,6 +245,7 @@ function printProductList() {
     
     
 };
+
 //printar/uppdaterar listan med alla produkter på nytt
 printProductList ();
 
@@ -227,15 +257,21 @@ printProductList ();
 
 
 function printCartProduct() {
+
+
+    let sum = 0; // Totalsumman startar på 0 
+    let mondaySaleMessage = ''; 
+
     productCart.innerHTML = '';
     products.forEach(product => {
-        if (product.amount> 0) {
+        if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
+            sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
             <li class="added-product-header">
-            <p>Produkt</p>
-            <p>Styckpris</p>
-            <p>Antal valda</p>
-            <p>Delsumman</p>
+                <p>Produkt</p>
+                <p>Styckpris</p>
+                <p>Antal valda</p>
+                <p>Delsumman</p>
             </li>
             <li class="added-product"
                 <figure>
@@ -244,30 +280,58 @@ function printCartProduct() {
                 <div>
                     <p>${product.name}</p>
                 </div>
-                    <p>${product.price} kr/st</p>
+                    <p>${Math.round(product.price * priceIncreased)} kr/st</p>
                 <label>
                     <button class="increase" id="increase-${product.id}">▲</button>
                     <span>${product.amount}</span>
                     <button class="decrease" id="decrease-${product.id}">▼</button>
                 </label>
-                <p>${product.amount * product.price} kr</p>
+                <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
             </li>
             `;
             }
         });
 
+        //if-sats för måndagsrabatten
+        if (today.getDay() === 4 && today.getHours() <= 10){ // Om dagens datum är (måndag och klockan är mindre eller = 10 så ska.......////////////GLÖM INTE ÄNDRA TILL 1 = MÅNDAG /////////
+            sum *= 0.9;
+            mondaySaleMessage += 'Måndagsrabatt: 10% på hela beställningen'
+        } 
 
+
+
+        let shipping = 25 + sum * 0.1; ////tar 10procent av summan och adderar till fraktkostnad
+
+        ///////Summeringen av alla produkter///////////////
+        productCart.innerHTML += `
+            <li class="cart-summary">
+                <div>
+                    <label>Rabattkod:
+                        <input>
+                    </label>
+                </div>
+                <section>
+                    <ul>
+                        <li>Fraktpris: + ${Math.round(shipping)} kr</li>
+                        <li>${mondaySaleMessage}</li>
+                    </ul>
+                    <h3>Totalsumma: ${Math.round(sum + shipping)} kr</h3>
+                    <button class="onward">Gå vidare med beställning</button>
+                </section>
+            </li>`
+
+        // eftersom variablarna är lolala i utskriften av produkten så beöver dessa läggas in igen för att få möjligheten att ändra antal i varukorgen
         const increaseButtons = document.querySelectorAll('button.increase'); 
         increaseButtons.forEach(button => {
         button.addEventListener('click', increaseProductCount)
         });
     
-                // Lägger till eventlyssnare för "decrease"-knappar
         const decreaseButtons = document.querySelectorAll('button.decrease');
         console.log(decreaseButtons);
         decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
         });
+
 }
 
 
