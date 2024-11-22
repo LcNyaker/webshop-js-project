@@ -169,15 +169,15 @@ function getRatingHtml(rating) {
 
 function increaseProductCount(event) {
     const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
-    console.log('clicked on button with id', productId);
+    //console.log('clicked on button with id', productId);
 
     //letar rätt på produkten i arrayen som har id 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-    console.log('found product at index:', foundProductIndex);
+    //console.log('found product at index:', foundProductIndex);
 
     products[foundProductIndex].amount += 1;
 
-    console.log(products[foundProductIndex]);
+    //console.log(products[foundProductIndex]);
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -187,7 +187,7 @@ function increaseProductCount(event) {
 }
 
 function decreaseProductCount(event) {
-    console.log("click on decrease");
+    //console.log("click on decrease");
     const productId = (event.target.id.replace('decrease-', '')); //byter ut strängarna i när man trycker på knappen mot '' 
 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
@@ -260,10 +260,15 @@ function printCartProduct() {
 
 
     let sum = 0; // Totalsumman startar på 0 
+    let shipping = 25; //Fraktkostnad 25kr
+
+
     let mondaySaleMessage = ''; 
+    let reservedProductsAmount = 0;
 
     productCart.innerHTML = '';
     products.forEach(product => {
+        reservedProductsAmount += product.amount
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
             sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
@@ -297,10 +302,13 @@ function printCartProduct() {
             sum *= 0.9;
             mondaySaleMessage += 'Måndagsrabatt: 10% på hela beställningen'
         } 
+        
+    
+        let shippingPrice = shipping + (sum * 0.1); ////tar 10procent av summan och adderar till fraktkostnad   
 
-
-
-        let shipping = 25 + sum * 0.1; ////tar 10procent av summan och adderar till fraktkostnad
+        if (reservedProductsAmount > 15) {
+            shippingPrice = 0;
+        } 
 
         ///////Summeringen av alla produkter///////////////
         productCart.innerHTML += `
@@ -312,10 +320,10 @@ function printCartProduct() {
                 </div>
                 <section>
                     <ul>
-                        <li>Fraktpris: + ${Math.round(shipping)} kr</li>
+                        <li>Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                         <li>${mondaySaleMessage}</li>
                     </ul>
-                    <h3>Totalsumma: ${Math.round(sum + shipping)} kr</h3>
+                    <h3>Totalsumma: ${Math.round(sum + shippingPrice)} kr</h3>
                     <button class="onward">Gå vidare med beställning</button>
                 </section>
             </li>`
@@ -327,7 +335,7 @@ function printCartProduct() {
         });
     
         const decreaseButtons = document.querySelectorAll('button.decrease');
-        console.log(decreaseButtons);
+        //console.log(decreaseButtons);
         decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
         });
