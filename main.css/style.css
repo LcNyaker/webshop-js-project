@@ -295,14 +295,94 @@ header section p {
   text-align: center;
   
 }
-.contact-details form {
+.contact-details {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   border: 3px solid black;
   background-color: #d8d4bf;
 }
+.contact-details form {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
 .contact-details form label {
+  flex: 1 1 45%;
   margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: 30px;
+}
+
+
+
+
+.payment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  background-color: rgb(152, 213, 231);
+  min-width: 450px;
+  height: 200px;
+}
+.payment-choice {
+  margin-top: 20px;
+}
+.invoice {
+  border: 2px solid red;
+}
+.card label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+.small-input {
+  width: 50px;
+}
+.hidden {
+  display: none;
+}
+
+
+
+
+
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.checkbox-container label {
+  display: flex;
+  flex-direction: row;
+}
+.checkbox-container label input {
+  height: 20px;
+  width: 20px;
+}
+.last-choice {
+  display: flex;
+  justify-content: space-between;
+}
+.last-choice button {
+  height: 50px;
+  width: 200px;
+  margin: 20px;
+  border-radius: 10px;
+}
+#cancel-button {
+  background-color: lightcoral
+}
+#order-button {
+  background-color: lightgreen;
+  &:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
 }
 

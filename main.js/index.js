@@ -1,136 +1,5 @@
-//variabel med en array av objekt bestående av produkter
-const products = [
-    {
-        id: 0,
-        name: 'Plucky McStrumface',
-        amount: 0, 
-        price: 16, 
-        rating: 3, 
-        category: 'plast',
-        img: {
-            url: 'assets/product-images/Product-PluckyMcStrumface.png',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 1,
-        name: 'Pickachu',
-        amount: 0, 
-        price: 35, 
-        rating: 5, 
-        category: 'trä',
-        img: {
-            url: 'assets/product-images/Product-Pickachu.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 2,
-        name: 'Plectrickery',
-        amount: 0, 
-        price: 38, 
-        rating: 2, 
-        category: 'metall',
-        img: {
-            url: 'assets/product-images/Product-Plectrickery.png',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 3,
-        name: 'Shred Zeppelin',
-        amount: 0, 
-        price: 42, 
-        rating: 3, 
-        category: 'metall',
-        img: {
-            url: 'assets/product-images/Product-ShredZeppelin.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 4,
-        name: 'Sir Strums-a-Lot',
-        amount: 0, 
-        price: 26, 
-        rating: 2, 
-        category: 'trä',
-        img: {
-            url: 'assets/product-images/Product-SirStrumsALot.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 5,
-        name: 'Pickle Ricktum',
-        amount: 0, 
-        price: 35, 
-        rating: 5, 
-        category: 'trä',
-        img: {
-            url: 'assets/product-images/Product-PickleRicktum.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 6,
-        name: 'Strumb & Dumb',
-        amount: 0, 
-        price: 18, 
-        rating: 4, 
-        category: 'plast',
-        img: {
-            url: 'assets/product-images/Product-StrumbAndDumb.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 7,
-        name: 'Pickasso',
-        amount: 0, 
-        price: 26, 
-        rating: 2, 
-        category: 'trä',
-        img: {
-            url: 'assets/product-images/Product-Pickasso.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 8,
-        name: 'Pluck Norris',
-        amount: 0, 
-        price: 20, 
-        rating: 5, 
-        category: 'plast',
-        img: {
-            url: 'assets/product-images/Product-PluckNorris.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    },
-    {
-        id: 9,
-        name: 'Strumdog Millionaire',
-        amount: 0, 
-        price: 34, 
-        rating: 1, 
-        category: 'metall',
-        img: {
-            url: 'assets/product-images/Product-StrumdogMillionaire.jpg',
-            widht: 1024,
-            height: 1024, 
-        },
-    }
-];
+//import av product array
+import products from "../products.mjs";
 
 //Hämtar specifik UL tagg från HTML
 const productListUl = document.querySelector('#product-list');
@@ -142,7 +11,15 @@ const today = new Date();
 const isFriday = today.getDay() === 5; 
 const isMonday = today.getDay() === 1;
 const currentHour = today.getHours();
+
 let priceIncreased = addedWeekendPrice();
+
+//Variabel för timer (1000 miliesekunder på en sekund gånger 60 sekunder gånger 15st = 15minuter)
+//let slowProgressTimeout = setTimeout(tooSlow, 1000 * 60 * 15); 
+
+/*function tooSlow() {
+    alert("Du var för långsam!");
+}*/
 
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
     console.log("idag är det torsdag");
@@ -218,6 +95,7 @@ function printProductList() {
         <li class="product-container">
             <h3>${product.name}</h3>
             <img class="product-img" src="${product.img.url}">
+            <p>${product.category}</p>
             <p>${Math.round(product.price * priceIncreased)} kr/st</p> 
             <p>betyg:${getRatingHtml(product.rating)}</p>
             <label>
@@ -268,7 +146,7 @@ function printCartProduct() {
 
     productCart.innerHTML = '';
     products.forEach(product => {
-        reservedProductsAmount += product.amount
+        reservedProductsAmount += product.amount //reserverade produkter ska plussas ihop för varje product.amount?
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
             sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
@@ -294,7 +172,7 @@ function printCartProduct() {
                 <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
             </li>
             `;
-            }
+            } 
         });
 
         //if-sats för måndagsrabatten
@@ -311,7 +189,8 @@ function printCartProduct() {
         } 
 
         ///////Summeringen av alla produkter///////////////
-        productCart.innerHTML += `
+        if (reservedProductsAmount > 0) {
+            productCart.innerHTML += `
             <li class="cart-summary">
                 <div>
                     <label>Rabattkod:
@@ -327,8 +206,10 @@ function printCartProduct() {
                     <button class="onward">Gå vidare med beställning</button>
                 </section>
             </li>`
+        } else {
+            productCart.innerHTML = 'Din varukorg är tömd';
+        }
 
-        // eftersom variablarna är lolala i utskriften av produkten så beöver dessa läggas in igen för att få möjligheten att ändra antal i varukorgen
         const increaseButtons = document.querySelectorAll('button.increase'); 
         increaseButtons.forEach(button => {
         button.addEventListener('click', increaseProductCount)
@@ -368,22 +249,196 @@ const btnCategory = document.querySelector('#sort-category');
 
 btnPrice.addEventListener('click', sortOnPrice);
 
-function sortOnPrice() {
-    console.log ("Pris är vald");
-}
-
 btnName.addEventListener('click', sortOnName);
 
-function sortOnName() {
-    console.log ("Namn är vald");
-}
-
 btnRating.addEventListener('click', sortOnRating);
-function sortOnRating() {
-    console.log ("Betyg är vald");
-}
 
 btnCategory.addEventListener('click', sortOnCategory);
+
+
+function sortOnPrice() {
+    // Sorterar produkterna i stigande ordning baserat på pris
+    products.sort((a, b) => a.price - b.price);
+    console.log("Pris är valt");
+
+    // Uppdaterar produktlistan med den sorterade listan
+    printProductList();
+}
+
+function sortOnName() { //funktion fungerar inte se vidare
+    products.sort((a, b) => a.name.localeCompare (b.name));
+    console.log ("Namn är vald");
+    printProductList();
+}
+
+function sortOnRating() {
+    products.sort((b, a) => a.rating - b.rating);
+    console.log ("Betyg är vald");
+    printProductList();
+}
+
 function sortOnCategory() {
+    products.sort((a, b) => a.category.localeCompare (b.category));
     console.log ("Kategori är vald");
+    printProductList();
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////formulär/////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//funktioner som kontrollerar inputens värde med regEx
+
+
+/////////////////////////////////Faktura eller Kort/////////////////////////////////////
+
+const paymentRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+const inputs = [
+    document.querySelector('#first-name'),
+    document.querySelector('#last-name'),
+    document.querySelector('#adress'),
+    document.querySelector('#post-number'),
+    document.querySelector('#post-county'),
+    document.querySelector('#port-code'),
+    document.querySelector('#phone-number'),
+    document.querySelector('#email-adress'),
+    document.querySelector('#card-number'),
+    document.querySelector('#card-year'),
+    document.querySelector('#card-month'),
+    document.querySelector('#card-cvc'),
+    document.querySelector('#personal-id'),
+    document.querySelector('#consent-checkbox')
+];
+
+const personalID = inputs[12];
+
+//Vardera container för invoice och card
+const invoiceOption = document.querySelector('#invoice-id'); 
+const cardOption = document.querySelector('#card-id'); 
+
+let selectedPaymentoption = 'card'; ///card är vald som default bland de två radiobuttons
+
+const orderBtn = document.querySelector('#order-button'); //beställningsknappen
+
+// RegEx variablar
+const postNumberRegEx = new RegExp(/^\d{3}\s?\d{2}$/);
+const phoneNumberRegEx = new RegExp(/^((\+46\s?7)|07)[02369]\s?\d{4}\s?\d{3}$/);
+const emailAdressRegEx = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+const personalIdRegEx = new RegExp(/^(19|20)?(\d{6}([-+]|\s)\d{4}|(?!19|20)\d{10})$/); // regex för svenska personnummer
+const cardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/);
+
+
+// Alla inputs behöver event listeners
+inputs.forEach(input => {
+    input.addEventListener('focusout', activateOrderBtn);
+    input.addEventListener('change', activateOrderBtn);
+});
+
+
+/*
+**funktionen togglar de båda knapparna och även hittar deras respektive värde
+*/
+
+paymentRadios.forEach(radioBtn => {
+    radioBtn.addEventListener('change', switchPaymentMethod); 
+});
+
+function switchPaymentMethod(e) {
+    invoiceOption.classList.toggle('hidden');
+    cardOption.classList.toggle('hidden');
+
+    selectedPaymentoption = e.target.value;
+    console.log(selectedPaymentoption);
+};
+
+/*
+** Funktionen returnerar jämförelsen av regEx och inputens värde
+*/
+
+
+function validateEmail() {
+    return EmailRegEx(inputs[7].value);
+}
+
+function validatePersonalId () {
+   return personalIdRegEx.exec(personalID.value);
+}
+
+function activateOrderBtn() {
+
+    orderBtn.setAttribute('disabled', '');
+
+    if (!inputs[0].value.trim()) {
+        console.warn('First name is mandatory')
+        return;
+    }
+    if (!inputs[1].value.trim()) {
+        console.warn('Last name is mandatory')
+        return;
+    }
+    if (!inputs[2].value.trim())  {
+        console.warn('We need an adress for the delivery')
+        return;
+    }
+    if (postNumberRegEx.exec(inputs[3].value) === null) {
+        console.warn('Postnumber doesnt exist')
+        return;
+    }
+    if (!inputs[4].value.trim()) {
+        console.warn('Dont forget to fill in county')
+        return;
+    }
+    if (phoneNumberRegEx.exec(inputs[6].value) === null) {
+        console.warn('Phonenumber not valid')
+        return;
+    }
+    if (emailAdressRegEx.exec(inputs[7].value) === null) {
+        console.warn('Email is not valid');
+        return;
+    }
+    if (selectedPaymentoption === 'invoice' && !validatePersonalId()) {
+        console.warn('Personnummer är inkorrekt');
+        return;
+    }
+    
+    if (selectedPaymentoption === 'card') {
+        if (cardNumberRegEx.exec(inputs[8].value) === null) {
+            console.warn('kortnummer är inte giltligt!');
+            return;
+        }
+
+        let yearInput = Number(inputs[9].value);
+        const shortYear = Number(String(today.getFullYear()).substring(2));
+        if (yearInput > shortYear + 5 || yearInput < shortYear){
+            console.warn('Card years is not valid');
+            return;
+        }
+
+        let monthInput = Number(inputs[10].value.padStart(2, '0'));
+        if (monthInput > 12 || monthInput <= 0 ) {
+            console.warn('month is not valid');
+            return;
+        }
+
+        if (yearInput === shortYear && monthInput < today.getMonth() + 1) {
+            console.warn('Your card has expired');
+            return;
+        }
+        if (inputs[11].value.length !== 3) {
+            console.warn('CVC is not correct');
+            return;
+        }    
+    }
+    if (!inputs[13].checked) {
+        console.warn('You must approve the processing of your personal data.');
+        return;
+    }
+    
+    orderBtn.removeAttribute('disabled');
+    
 }

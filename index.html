@@ -43,13 +43,13 @@
                 <label> Pris:
                     <input type="radio" name="radio-buttons-sorting" id="sort-price">
                 </label>
-                <label> Namn:
+                <label> | Namn:
                     <input type="radio" name="radio-buttons-sorting" id="sort-name">
                 </label>
-                <label> Betyg:
+                <label> | Betyg:
                     <input type="radio" name="radio-buttons-sorting" id="sort-rating">
                 </label>
-                <label> Kategori:
+                <label> | Kategori:
                     <input type="radio" name="radio-buttons-sorting" id="sort-category">
                 </label>
             </fieldset>
@@ -83,29 +83,93 @@
             <h2>Kunduppgifter</h2>
             <form>
                 <label>Förnamn:
-                    <input type="text">
+                    <input type="text" id="first-name">
                 </label>
                 <label>Efternamn:
-                    <input type="text">
+                    <input type="text" id="last-name">
                 </label>
-                <label>Adress:
-                    <input type="text">
+                <label>Address:
+                    <input type="text" id="adress">
+                </label>
+                <label>Postnummer:
+                    <input type="number" id="post-number">
+                </label>
+                <label>Postort:
+                    <input type="text" id="post-county">
                 </label>
                 <label>ev.Portkod:
-                    <input type="text">
+                    <input type="text" id="port-code">
                 </label>
                 <label>Telefon(mobil):
-                    <input type="text">
+                    <input type="text" id="phone-number">
                 </label>
                 <label>Epostadress:
-                    <input type="text">
+                    <input type="text" id="email-adress">
                 </label>
             </form>
+
+
+
+
+
+
+            <section class="payment-section">
+                <h2>Val av betalsätt:</h2>
+                <div class="payment-choice">
+                    <label>
+                        <input type="radio" name="payment-option" value="invoice"></input> 
+                    </label>: Faktura
+                    <label>
+                        <input type="radio" name="payment-option" value="card" checked></input>
+                    </label>: Kort
+                </div>
+
+                <div class="invoice hidden" id="invoice-id">
+                    <label>
+                        <span>Personnummer</span>
+                        <input type="text" id="personal-id" placeholder="YYYYMMDD-****">
+                    </label>
+                </div>
+
+                <div class="card" id="card-id">
+                    <label>
+                        <span>Kortnummer</span>
+                        <input type="number" id="card-number">
+                    </label>
+                    <label>
+                        <span>Datum</span>
+                        <span>
+                            <input type="number" class="small-input" id="card-year" placeholder="YY">/<input type="numer" class="small-input" id="card-month" placeholder="MM"> 
+                        </span>
+                    </label>
+                    <label>
+                        <span>CVC</span>
+                        <input type="number" id="card-cvc" placeholder="***">
+                    </label>
+                </div>
+            </section>
+            <div class="checkbox-container">
+                    <label>
+                        <input type="checkbox" id="consent-checkbox">
+                        <p>Jag godkänner behandlingen av mina personuppgifter</p>
+                    </label>
+                    <label>
+                        <input type="checkbox" checked>
+                        <p>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!</p>
+                    </label>
+            </div>
+
+
+
+            <div class="last-choice">
+                <button id="cancel-button">Avbryt beställning</button>
+                <button id="order-button" disabled>Skicka beställning</button>
+            </div>
         </section>
     </main>
 
 
 
-    <script src="main.js/index.js"></script>
+    <script type="module" src="main.js/index.js"></script>
 </body>
 </html>
