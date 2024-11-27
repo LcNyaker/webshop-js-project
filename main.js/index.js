@@ -16,13 +16,6 @@ const currentHour = today.getHours();
 
 let priceIncreased = addedWeekendPrice();
 
-//Variabel för timer (1000 miliesekunder på en sekund gånger 60 sekunder gånger 15st = 15minuter)
-//let slowProgressTimeout = setTimeout(tooSlow, 1000 * 60 * 15); 
-
-/*function tooSlow() {
-    alert("Du var för långsam!");
-}*/
-
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
     console.log("idag är det torsdag");
 } else {
@@ -430,9 +423,13 @@ function activateOrderBtn() {
     }
     
     orderBtn.removeAttribute('disabled');
-    
+    tooSlow();
 }
 
+
+function tooSlow() {
+    setTimeout(canceledByTimeout, 1000 * 20);
+}
 
 function acceptOrder() {
     alert(`Din order är mottagen och hanteras.
@@ -445,6 +442,22 @@ function acceptOrder() {
 **funktionen loopar igenom alla produkter och ändrar amount tillbaka till 0
 **printar ut både produktlistan och varukorgen på nytt
 */
+function canceledByTimeout () {
+    products.forEach(product => { 
+    product.amount = 0;
+    });
+        
+    inputs.forEach(input => {
+    input.value = '';
+    });
+            
+    inputs[13].checked = false;
+        
+    printProductList();
+    printCartProduct();
+    alert('Du var för långsam!')
+}
+
 function cancelOrder() {
     products.forEach(product => { 
     product.amount = 0;
@@ -459,11 +472,3 @@ function cancelOrder() {
     printProductList();
     printCartProduct();
 }
-
-
-//knappen ska tryckas på och aktivera en funktion
-//funktionen syfte är att rensa varukorg
-//funktionen syfte är också att rensa inputsfält 
-//När funktionen aktiveras så ska den ändra värdet i korgen till 0
-//den ska printa ut en tom varukorg 
-// den ska ändra värdet i alla inputs till 0 eller ''
