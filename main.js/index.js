@@ -170,7 +170,7 @@ function printCartProduct() {
         });
 
         //if-sats för måndagsrabatten
-        if (today.getDay() === 4 && today.getHours() <= 10){ // Om dagens datum är (måndag och klockan är mindre eller = 10 så ska.......////////////GLÖM INTE ÄNDRA TILL 1 = MÅNDAG /////////
+        if (today.getDay() === 1 && today.getHours() <= 10){ // Om dagens datum är (måndag och klockan är mindre eller = 10 så ska.......////////////GLÖM INTE ÄNDRA TILL 1 = MÅNDAG /////////
             sum *= 0.9;
             mondaySaleMessage += 'Måndagsrabatt: 10% på hela beställningen'
         } 
@@ -182,7 +182,7 @@ function printCartProduct() {
             shippingPrice = 0;
         } 
 
-        ///////Summeringen av alla produkter///////////////
+        ///////Summeringen av alla produkter/////////////// ta bort onward ifall jag inte ska ha något bruk för den
         if (reservedProductsAmount > 0) {
             productCart.innerHTML += `
             <li class="cart-summary">
@@ -193,11 +193,11 @@ function printCartProduct() {
                 </div>
                 <section>
                     <ul>
-                        <li>Fraktpris: + ${Math.round(shippingPrice)} kr</li>
-                        <li>${mondaySaleMessage}</li>
+                        <li class="cart-summary-message">${mondaySaleMessage}</li>
+                        <li class="cart-summary-message">Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                     </ul>
                     <h3>Totalsumma: ${Math.round(sum + shippingPrice)} kr</h3>
-                    <button class="onward">Gå vidare med beställning</button>
+                    <button class="onward">Gå vidare med beställning</button>  
                 </section>
             </li>`
         } else {
@@ -210,20 +210,26 @@ function printCartProduct() {
         });
     
         const decreaseButtons = document.querySelectorAll('button.decrease');
-        //console.log(decreaseButtons);
         decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
         });
 
+        // Aktiverar funktionen som summan är 800kr eller mer
+        if (sum + shippingPrice >= 800) {
+            disableInvoice();
+            alert('Faktura som betalmetod är tyvärr inte längre möjlig');
+        } 
 }
+ 
 
-
-
-
-
-
-
-
+/*
+**funktionen låser fältet för personnummer och lämnar ett meddelande till användaren
+*/
+function disableInvoice() {
+    personalID.disabled = true;
+    invoiceOption.innerHTML +=`<p>Tyvärr kan vi inte erbjuda faktura som <br>  
+    betalningsalternativ för belopp på 800 kr eller mer.</p>`;
+}
 
 
 
@@ -298,6 +304,7 @@ const inputs = [
 ];
 
 const personalID = inputs[12];
+personalID.disabled = false;
 
 //Vardera container för invoice och card
 const invoiceOption = document.querySelector('#invoice-id'); 
@@ -426,9 +433,9 @@ function activateOrderBtn() {
     tooSlow();
 }
 
-
+// funktion med en timer och en utlösande funktion
 function tooSlow() {
-    setTimeout(canceledByTimeout, 1000 * 20);
+    setTimeout(canceledByTimeout, 1000 * 15 * 60);
 }
 
 function acceptOrder() {
@@ -436,12 +443,7 @@ function acceptOrder() {
     Vi återkommer med leveransdatum inom kort.`);
 }
 
-
-/*
-**funktionen aktiveras när man trycker på avbryt order
-**funktionen loopar igenom alla produkter och ändrar amount tillbaka till 0
-**printar ut både produktlistan och varukorgen på nytt
-*/
+//specif funktion för beställningsknappen som rensar allt och ger ett meddelande
 function canceledByTimeout () {
     products.forEach(product => { 
     product.amount = 0;
@@ -458,6 +460,7 @@ function canceledByTimeout () {
     alert('Du var för långsam!')
 }
 
+//funktion för att avbryta order
 function cancelOrder() {
     products.forEach(product => { 
     product.amount = 0;
