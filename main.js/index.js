@@ -12,6 +12,8 @@ const isFriday = today.getDay() === 5;
 const isMonday = today.getDay() === 1;
 const currentHour = today.getHours();
 
+
+
 let priceIncreased = addedWeekendPrice();
 
 //Variabel för timer (1000 miliesekunder på en sekund gånger 60 sekunder gånger 15st = 15minuter)
@@ -121,7 +123,6 @@ function printProductList() {
     button.addEventListener('click', decreaseProductCount);
     });
     
-    
 };
 
 //printar/uppdaterar listan med alla produkter på nytt
@@ -146,7 +147,7 @@ function printCartProduct() {
 
     productCart.innerHTML = '';
     products.forEach(product => {
-        reservedProductsAmount += product.amount //reserverade produkter ska plussas ihop för varje product.amount?
+        reservedProductsAmount += product.amount 
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
             sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
@@ -240,19 +241,12 @@ function printCartProduct() {
 
 
 const btnPrice = document.querySelector('#sort-price');
-
 const btnName = document.querySelector('#sort-name');
-
 const btnRating = document.querySelector('#sort-rating');
-
 const btnCategory = document.querySelector('#sort-category');
-
 btnPrice.addEventListener('click', sortOnPrice);
-
 btnName.addEventListener('click', sortOnName);
-
 btnRating.addEventListener('click', sortOnRating);
-
 btnCategory.addEventListener('click', sortOnCategory);
 
 
@@ -289,15 +283,10 @@ function sortOnCategory() {
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////formulär/////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//funktioner som kontrollerar inputens värde med regEx
-
-
 /////////////////////////////////Faktura eller Kort/////////////////////////////////////
 
 const paymentRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+
 const inputs = [
     document.querySelector('#first-name'),
     document.querySelector('#last-name'),
@@ -324,6 +313,10 @@ const cardOption = document.querySelector('#card-id');
 let selectedPaymentoption = 'card'; ///card är vald som default bland de två radiobuttons
 
 const orderBtn = document.querySelector('#order-button'); //beställningsknappen
+const cancelBtn = document.querySelector('#cancel-button'); //Avbryt beställningsknapp
+
+orderBtn.addEventListener('click', acceptOrder);
+cancelBtn.addEventListener('click', cancelOrder);
 
 // RegEx variablar
 const postNumberRegEx = new RegExp(/^\d{3}\s?\d{2}$/);
@@ -343,7 +336,6 @@ inputs.forEach(input => {
 /*
 **funktionen togglar de båda knapparna och även hittar deras respektive värde
 */
-
 paymentRadios.forEach(radioBtn => {
     radioBtn.addEventListener('change', switchPaymentMethod); 
 });
@@ -360,16 +352,14 @@ function switchPaymentMethod(e) {
 ** Funktionen returnerar jämförelsen av regEx och inputens värde
 */
 
-
-function validateEmail() {
-    return EmailRegEx(inputs[7].value);
-}
-
 function validatePersonalId () {
    return personalIdRegEx.exec(personalID.value);
 }
 
-function activateOrderBtn() {
+/*
+** Funktionen kollar stegvis igenom att nödvändiga inputfält är ifyllda korrekt innan den aktiverar beställningsknappen
+*/
+function activateOrderBtn() { 
 
     orderBtn.setAttribute('disabled', '');
 
@@ -442,3 +432,38 @@ function activateOrderBtn() {
     orderBtn.removeAttribute('disabled');
     
 }
+
+
+function acceptOrder() {
+    alert(`Din order är mottagen och hanteras.
+    Vi återkommer med leveransdatum inom kort.`);
+}
+
+
+/*
+**funktionen aktiveras när man trycker på avbryt order
+**funktionen loopar igenom alla produkter och ändrar amount tillbaka till 0
+**printar ut både produktlistan och varukorgen på nytt
+*/
+function cancelOrder() {
+    products.forEach(product => { 
+    product.amount = 0;
+    });
+
+    inputs.forEach(input => {
+    input.value = '';
+    });
+    
+    inputs[13].checked = false;
+
+    printProductList();
+    printCartProduct();
+}
+
+
+//knappen ska tryckas på och aktivera en funktion
+//funktionen syfte är att rensa varukorg
+//funktionen syfte är också att rensa inputsfält 
+//När funktionen aktiveras så ska den ändra värdet i korgen till 0
+//den ska printa ut en tom varukorg 
+// den ska ändra värdet i alla inputs till 0 eller ''
