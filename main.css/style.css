@@ -71,17 +71,13 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
-
-
-
-
+/* CSS RESET */
 
 
 body {
   font-family: "Public Sans";
   background-color: #2f4858
 }
-
 header {
   position: sticky;
   top: 0;
@@ -151,8 +147,6 @@ header section p {
   border-radius: 15px;
   margin-bottom: 20px;
 }
-
-
 .sort {
   display: flex;
   justify-content: center;
@@ -166,9 +160,6 @@ header section p {
   border-radius: 5px;
   border: 2px solid black;
 }
-
-
-
 #product-list {
   padding-left: 0;
 }
@@ -194,15 +185,6 @@ header section p {
 .product-container input {
   appearance: default;
 }
-
-
-
-
-
-
-
-
-
 .shopping-cart {
   text-align: center;
 }
@@ -247,20 +229,6 @@ header section p {
   background-color: #d8d4bf;
   border: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .cart-summary {
   list-style: none;
 }
@@ -292,15 +260,6 @@ header section p {
 .cart-summary-message {
   list-style: none;
 }
-
-
-
-
-
-
-
-
-
 .contact-details h2 {
   text-align: center;
   
@@ -325,10 +284,6 @@ header section p {
   margin-bottom: 40px;
   margin-left: 30px;
 }
-
-
-
-
 .payment-section { 
   display: flex;
   flex-direction: column;
@@ -353,12 +308,6 @@ header section p {
 .hidden {
   display: none;
 }
-
-
-
-
-
-
 .checkbox-container {
   display: flex;
   flex-direction: column;
