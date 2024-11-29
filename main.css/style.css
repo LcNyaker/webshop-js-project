@@ -125,7 +125,7 @@ header section p {
   color: black;
 }
 
-/* Applicera animationen */
+/* Applicera animationen för knappen*/
 .button-animate {
   animation: greenPulse 0.9s ease-in-out;
 }
