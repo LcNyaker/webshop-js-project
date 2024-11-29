@@ -6,10 +6,12 @@ const products = [
         price: 16, 
         rating: 3, 
         category: 'plast',
+        discountPrice: null,    
         img: {
             url: 'assets/product-images/Product-PluckyMcStrumface.png',
             widht: 1024,
             height: 1024, 
+            alt: 'An orange transparent guitar plectrum made in plastic, with the text "Plucky McStrumFace" at the top and "Plucky Guitar Pick" below a stylized happy smiley icon in the middle.',
         },
     },
     {
@@ -18,11 +20,12 @@ const products = [
         amount: 0, 
         price: 35, 
         rating: 5, 
-        category: 'trä',
+        category: 'trä',    
         img: {
             url: 'assets/product-images/Product-Pickachu.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'A wooden plectrum with a hollow near the top. On the plectrum is an illustration of a yellow cartoon character with red cheeks and black ear tips, surrounded by the text "Pikachu" and other minor markings.', 
         },
     },
     {
@@ -31,11 +34,12 @@ const products = [
         amount: 0, 
         price: 38, 
         rating: 2, 
-        category: 'metall',
+        category: 'metall',    
         img: {
             url: 'assets/product-images/Product-Plectrickery.png',
             widht: 1024,
             height: 1024, 
+            alt: 'Ett metalliskt gitarrplektrum med texten "Plectrickery" ingraverad upptill, omgiven av geometriska mönster och linjer som ger ett elegant och modernt utseende.',
         },
     },
     {
@@ -44,7 +48,7 @@ const products = [
         amount: 0, 
         price: 42, 
         rating: 3, 
-        category: 'metall',
+        category: 'metall',    
         img: {
             url: 'assets/product-images/Product-ShredZeppelin.jpg',
             widht: 1024,
@@ -57,7 +61,7 @@ const products = [
         amount: 0, 
         price: 26, 
         rating: 2, 
-        category: 'trä',
+        category: 'trä',    
         img: {
             url: 'assets/product-images/Product-SirStrumsALot.jpg',
             widht: 1024,
@@ -70,7 +74,7 @@ const products = [
         amount: 0, 
         price: 35, 
         rating: 5, 
-        category: 'trä',
+        category: 'trä',    
         img: {
             url: 'assets/product-images/Product-PickleRicktum.jpg',
             widht: 1024,
@@ -83,7 +87,7 @@ const products = [
         amount: 0, 
         price: 18, 
         rating: 4, 
-        category: 'plast',
+        category: 'plast',    
         img: {
             url: 'assets/product-images/Product-StrumbAndDumb.jpg',
             widht: 1024,
@@ -96,7 +100,7 @@ const products = [
         amount: 0, 
         price: 26, 
         rating: 2, 
-        category: 'trä',
+        category: 'trä',    
         img: {
             url: 'assets/product-images/Product-Pickasso.jpg',
             widht: 1024,
@@ -109,7 +113,7 @@ const products = [
         amount: 0, 
         price: 20, 
         rating: 5, 
-        category: 'plast',
+        category: 'plast',    
         img: {
             url: 'assets/product-images/Product-PluckNorris.jpg',
             widht: 1024,
@@ -122,7 +126,7 @@ const products = [
         amount: 0, 
         price: 34, 
         rating: 1, 
-        category: 'metall',
+        category: 'metall',    
         img: {
             url: 'assets/product-images/Product-StrumdogMillionaire.jpg',
             widht: 1024,

@@ -4,7 +4,8 @@ import products from "../products.mjs";
 //Hämtar specifik UL tagg från HTML
 const productListUl = document.querySelector('#product-list');
 const productCart = document.querySelector('#cart');
-
+const cartBtn = document.querySelector('#shopping-cart-button');
+console.log(cartBtn);
 
 ///Variablar för datum////
 const today = new Date();
@@ -12,9 +13,10 @@ const isFriday = today.getDay() === 5;
 const isMonday = today.getDay() === 1;
 const currentHour = today.getHours();
 
-
-
 let priceIncreased = addedWeekendPrice();
+
+const shippingDate = today.getDate();
+console.log(shippingDate);
 
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
     console.log("idag är det torsdag");
@@ -42,14 +44,18 @@ function getRatingHtml(rating) {
 function increaseProductCount(event) {
     const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
     //console.log('clicked on button with id', productId);
-
     //letar rätt på produkten i arrayen som har id 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
     //console.log('found product at index:', foundProductIndex);
 
+
     products[foundProductIndex].amount += 1;
 
-    //console.log(products[foundProductIndex]);
+    if (products[foundProductIndex].amount >= 10) {//produkten med specifik indexs mängd är likamed eller överstiger 10
+        products[foundProductIndex].price * 0.9;
+        console.log('Rabatten aktiverad');
+    }
+
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -64,7 +70,7 @@ function decreaseProductCount(event) {
 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
 
-    // En if sats som förklarar att om värdetr i inputen är större än 0 så ska värdet minskas med -1
+    // En if sats som förklarar att om värdet i inputen är större än 0 så ska värdet minskas med -1
     if (products[foundProductIndex].amount > 0) {
         products[foundProductIndex].amount -= 1;
     } else { // Om värdet i inputen inte är större än noll ska detta visas alert med antalet är 0
@@ -133,14 +139,13 @@ function printCartProduct() {
 
     let sum = 0; // Totalsumman startar på 0 
     let shipping = 25; //Fraktkostnad 25kr
-
-
     let mondaySaleMessage = ''; 
     let reservedProductsAmount = 0;
 
     productCart.innerHTML = '';
     products.forEach(product => {
         reservedProductsAmount += product.amount 
+        
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
             sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
@@ -166,7 +171,14 @@ function printCartProduct() {
                 <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
             </li>
             `;
-            } 
+
+            cartBtn.classList.add('button-animate');
+
+            // Ta bort klassen efter animationen är klar
+            setTimeout(() => {
+                cartBtn.classList.remove('button-animate');
+            }, 1000); // Samma tid som animationens varaktighet
+        } 
         });
 
         //if-sats för måndagsrabatten
@@ -215,7 +227,7 @@ function printCartProduct() {
         });
 
         // Aktiverar funktionen som summan är 800kr eller mer
-        if (sum + shippingPrice >= 800) {
+        if (sum + shippingPrice > 800) {
             disableInvoice();
             alert('Faktura som betalmetod är tyvärr inte längre möjlig');
         } 

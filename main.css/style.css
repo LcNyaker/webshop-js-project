@@ -107,11 +107,13 @@ h1 {
 header section p {
   justify-self: center;
 }
-.shopping-cart-btn {
+#shopping-cart-button {
   width: 100px;
   height: 100px;
+  color: black;
   background-color: #d8d4bf;
   border-radius: 50%;
+  border: none;
 }
 .material-symbols-outlined {
   font-variation-settings:
@@ -122,6 +124,12 @@ header section p {
   text-decoration: none;
   color: black;
 }
+
+/* Applicera animationen */
+.button-animate {
+  animation: greenPulse 0.9s ease-in-out;
+}
+
 .about-us {
   display: flex;
   flex-direction: column;
@@ -343,3 +351,14 @@ header section p {
   }
 }
 
+@keyframes greenPulse {
+  0% {
+      background-color: #d8d4bf; /* Ursprunglig färg */
+  }
+  50% {
+      background-color: #32cd32; /* Grön färg */
+  }
+  100% {
+      background-color: #d8d4bf; /* Tillbaka till ursprunglig färg */
+  }
+}
