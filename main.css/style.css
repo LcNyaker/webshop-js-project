@@ -149,7 +149,7 @@ header section p {
   padding: 10px;
 }
 .factory-img {
-  width: 500px;
+  min-width: 500px;
   height: 500px;
   border: 3px solid black;
   border-radius: 15px;
@@ -168,7 +168,7 @@ header section p {
   border-radius: 5px;
   border: 2px solid black;
 }
-#product-list {
+.product-list {
   padding-left: 0;
 }
 .product-container {
@@ -282,15 +282,20 @@ header section p {
 }
 .contact-details form {
   display: flex;
-  justify-content: center;
   align-content: center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .contact-details form label {
-  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 4 45%;
   margin-top: 30px;
   margin-bottom: 40px;
-  margin-left: 30px;
+}
+.contact-details form label input {
+  margin-left: 10px;
 }
 .payment-section { 
   display: flex;
@@ -360,5 +365,33 @@ header section p {
   }
   100% {
       background-color: #d8d4bf; /* Tillbaka till ursprunglig färg */
+  }
+}
+
+@media (min-width: 768px) {
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.product-container {
+  min-width: 345px;
+  margin: 10px;
+}
+}
+
+
+@media (min-width: 1024px) {
+   .about-us {
+    flex-direction: row-reverse;
+   }
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .product-container {
+    min-width: 400px;
+    margin: 10px;
   }
 }

@@ -5,7 +5,7 @@ import products from "../products.mjs";
 const productListUl = document.querySelector('#product-list');
 const productCart = document.querySelector('#cart');
 const cartBtn = document.querySelector('#shopping-cart-button');
-console.log(cartBtn);
+
 
 ///Variablar för datum////
 const today = new Date();
@@ -15,8 +15,6 @@ const currentHour = today.getHours();
 
 let priceIncreased = addedWeekendPrice();
 
-const shippingDate = today.getDate();
-console.log(shippingDate);
 
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
     console.log("idag är det torsdag");
@@ -171,7 +169,6 @@ function printCartProduct() {
                 <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
             </li>
             `;
-
             cartBtn.classList.add('button-animate');
 
             // Ta bort klassen efter animationen är klar
@@ -214,6 +211,7 @@ function printCartProduct() {
             </li>`
         } else {
             productCart.innerHTML = 'Din varukorg är tömd';
+            lastPage.classList.add('hidden'); //tar bort formulär och betalningsmetod om varukorgen töms.
         }
 
         const increaseButtons = document.querySelectorAll('button.increase'); 
@@ -231,8 +229,20 @@ function printCartProduct() {
             disableInvoice();
             alert('Faktura som betalmetod är tyvärr inte längre möjlig');
         } 
+        
+        const onward = document.querySelector('.onward');
+        onward.addEventListener('click', showLastPage);
 }
- 
+
+const lastPage = document.querySelector('.contact-details')
+
+
+
+
+function showLastPage() {
+    lastPage.classList.remove('hidden');    
+}
+
 
 /*
 **funktionen låser fältet för personnummer och lämnar ett meddelande till användaren
