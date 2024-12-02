@@ -9,9 +9,16 @@ const cartBtn = document.querySelector('#shopping-cart-button');
 
 ///Variablar för datum////
 const today = new Date();
+const shippingDate = new Date(today);
 const isFriday = today.getDay() === 5; 
 const isMonday = today.getDay() === 1;
 const currentHour = today.getHours();
+
+
+let globalFinalSum = 0;
+let reservedProductsAmount = 0;
+
+console.log(globalFinalSum);
 
 let priceIncreased = addedWeekendPrice();
 
@@ -57,7 +64,7 @@ function increaseProductCount(event) {
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
-
+    console.log(reservedProductsAmount +1); // Visar korrekt värde
     printCartProduct();
 
 }
@@ -75,8 +82,8 @@ function decreaseProductCount(event) {
         alert("Antal är redan 0")
     }
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
-
-    printCartProduct();
+    console.log(reservedProductsAmount +1)
+printCartProduct();
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,21 +145,22 @@ function printCartProduct() {
     let sum = 0; // Totalsumman startar på 0 
     let shipping = 25; //Fraktkostnad 25kr
     let mondaySaleMessage = ''; 
-    let reservedProductsAmount = 0;
+    reservedProductsAmount = 0;
 
-    productCart.innerHTML = '';
+    productCart.innerHTML = `
+            <li class="added-product-header">
+                <p>Produkt</p>
+                <p>Styckpris</p>
+                <p>Antal valda</p>
+                <p>Delsumman</p>
+            </li>`;
+
     products.forEach(product => {
         reservedProductsAmount += product.amount 
         
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
             sum += product.amount * product.price; // totalsumman vara mängden * priset
             productCart.innerHTML += `
-            <li class="added-product-header">
-                <p>Produkt</p>
-                <p>Styckpris</p>
-                <p>Antal valda</p>
-                <p>Delsumman</p>
-            </li>
             <li class="added-product"
                 <figure>
                     <img class="added-product-img" src="${product.img.url}">
@@ -169,6 +177,7 @@ function printCartProduct() {
                 <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
             </li>
             `;
+
             cartBtn.classList.add('button-animate');
 
             // Ta bort klassen efter animationen är klar
@@ -186,10 +195,13 @@ function printCartProduct() {
         
     
         let shippingPrice = shipping + (sum * 0.1); ////tar 10procent av summan och adderar till fraktkostnad   
-
+        
         if (reservedProductsAmount > 15) {
             shippingPrice = 0;
         } 
+
+        let finalSum = Math.round(sum + shippingPrice)
+        console.log(finalSum);
 
         ///////Summeringen av alla produkter/////////////// ta bort onward ifall jag inte ska ha något bruk för den
         if (reservedProductsAmount > 0) {
@@ -205,13 +217,13 @@ function printCartProduct() {
                         <li class="cart-summary-message">${mondaySaleMessage}</li>
                         <li class="cart-summary-message">Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                     </ul>
-                    <h3>Totalsumma: ${Math.round(sum + shippingPrice)} kr</h3>
+                    <h3>Totalsumma: ${finalSum} kr</h3>
                     <button class="onward">Gå vidare med beställning</button>  
                 </section>
             </li>`
         } else {
             productCart.innerHTML = 'Din varukorg är tömd';
-            lastPage.classList.add('hidden'); //tar bort formulär och betalningsmetod om varukorgen töms.
+            lastPage.classList.add('hidden'); //tar bort kontakt
         }
 
         const increaseButtons = document.querySelectorAll('button.increase'); 
@@ -225,22 +237,25 @@ function printCartProduct() {
         });
 
         // Aktiverar funktionen som summan är 800kr eller mer
-        if (sum + shippingPrice > 800) {
+        if (finalSum > 800) {
             disableInvoice();
-            alert('Faktura som betalmetod är tyvärr inte längre möjlig');
+            alert('Faktura som betalmetod är tyvärr inte längre möjlig.');
         } 
         
+        if (sum + shippingPrice > 25) {
         const onward = document.querySelector('.onward');
         onward.addEventListener('click', showLastPage);
+        }
+
+        globalFinalSum = finalSum;
+
+        return `${finalSum}`
 }
 
 const lastPage = document.querySelector('.contact-details')
 
-
-
-
 function showLastPage() {
-    lastPage.classList.remove('hidden');    
+    lastPage.classList.remove('hidden');   
 }
 
 
@@ -378,6 +393,8 @@ function validatePersonalId () {
    return personalIdRegEx.exec(personalID.value);
 }
 
+const errorFirsName = document.createElement("p");
+const errorFirsNameNode = document.createTextNode(`Du behöver fylla i ett förnamn!`);
 /*
 ** Funktionen kollar stegvis igenom att nödvändiga inputfält är ifyllda korrekt innan den aktiverar beställningsknappen
 */
@@ -460,9 +477,32 @@ function tooSlow() {
     setTimeout(canceledByTimeout, 1000 * 15 * 60);
 }
 
+function shipping() { //Denna funktion räknar ut leveransdatum, genom att ta dagens veckodag, och addera ifall det är måndag eller tisdag för att utesluta leverans på helgen
+
+    const day = today.getDay();
+
+    if (day === 1) {
+    shippingDate.setDate(today.getDate() + 7)
+    }
+    else if (day === 2) {
+    shippingDate.setDate(today.getDate() + 6)
+    } else {
+        shippingDate.setDate(today.getDate() + 5)
+    }
+} 
+
+shipping();
+
+const showCaseDate = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
 function acceptOrder() {
     alert(`Din order är mottagen och hanteras.
-    Vi återkommer med leveransdatum inom kort.`);
+    
+    Kvitto: 
+    - Dagens datum: ${today.toLocaleDateString('sv-SE', showCaseDate)}.
+    - Din beställning innehåller sammanlagt ${reservedProductsAmount} produkter.
+    - Totalbeloppet på din beställning landade på ${globalFinalSum} kr. 
+    - Förväntad leveranstid är ${shippingDate.toLocaleDateString('sv-SE', showCaseDate)}.`)
 }
 
 //specif funktion för beställningsknappen som rensar allt och ger ett meddelande
