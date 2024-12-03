@@ -18,9 +18,10 @@ const currentHour = today.getHours();
 let globalFinalSum = 0;
 let reservedProductsAmount = 0;
 
-console.log(globalFinalSum);
 
 let priceIncreased = addedWeekendPrice();
+
+let amountDiscount = false
 
 
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
@@ -53,19 +54,22 @@ function increaseProductCount(event) {
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
     //console.log('found product at index:', foundProductIndex);
 
-
     products[foundProductIndex].amount += 1;
 
     if (products[foundProductIndex].amount >= 10) {//produkten med specifik indexs mängd är likamed eller överstiger 10
-        products[foundProductIndex].price * 0.9;
+        products[foundProductIndex].discountedPrice = products[foundProductIndex].price * 0.9; // Spara rabatterat pris
+        amountDiscount = true;
         console.log('Rabatten aktiverad');
+        console.log(amountDiscount);
+    } else {
+        products[foundProductIndex].discountedPrice = products[foundProductIndex].price; // Återställ pris om mängden är mindre än 10
     }
 
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
-    console.log(reservedProductsAmount +1); // Visar korrekt värde
     printCartProduct();
+    printProductList();
 
 }
 
@@ -81,11 +85,19 @@ function decreaseProductCount(event) {
     } else { // Om värdet i inputen inte är större än noll ska detta visas alert med antalet är 0
         alert("Antal är redan 0")
     }
+
+    if (products[foundProductIndex].amount < 10) {
+        products[foundProductIndex].discountedPrice = products[foundProductIndex].price;
+        console.log('rabatten är avaktiverad')
+        amountDiscount = false;
+    }
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
-    console.log(reservedProductsAmount +1)
-printCartProduct();
+
+    printCartProduct();
+    printProductList();
 
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////Funktion som visar alla produkter på hemsidan////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,12 +109,13 @@ function printProductList() {
     //Bygger ihop produkternas behållare där de hämtar värden från objekten i arrayen och gör en funktion av det för att printa ut/uppdatera sidan på nytt
     //Math.round för att runda upp priet vid helgpåslag
     products.forEach(product => {
+        const displayedPrice = product.discountedPrice || product.price; // Använd rabatterat pris om det finns
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
             <img class="product-img" src="${product.img.url}">
             <p>${product.category}</p>
-            <p>${Math.round(product.price * priceIncreased)} kr/st</p> 
+            <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
             <p>betyg:${getRatingHtml(product.rating)}</p>
             <label>
                 <button class="decrease" id="decrease-${product.id}">-</button>
@@ -145,6 +158,7 @@ function printCartProduct() {
     let sum = 0; // Totalsumman startar på 0 
     let shipping = 25; //Fraktkostnad 25kr
     let mondaySaleMessage = ''; 
+    let discountMessage = ''; 
     reservedProductsAmount = 0;
 
     productCart.innerHTML = `
@@ -159,7 +173,8 @@ function printCartProduct() {
         reservedProductsAmount += product.amount 
         
         if (product.amount > 0) { ///om mängden är större än 0 då ska----> 
-            sum += product.amount * product.price; // totalsumman vara mängden * priset
+            const displayedPrice = product.discountedPrice || product.price;
+            sum += product.amount * displayedPrice; // totalsumman vara mängden * priset
             productCart.innerHTML += `
             <li class="added-product"
                 <figure>
@@ -168,13 +183,13 @@ function printCartProduct() {
                 <div>
                     <p>${product.name}</p>
                 </div>
-                    <p>${Math.round(product.price * priceIncreased)} kr/st</p>
+                    <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p>
                 <label>
                     <button class="increase" id="increase-${product.id}">▲</button>
                     <span>${product.amount}</span>
                     <button class="decrease" id="decrease-${product.id}">▼</button>
                 </label>
-                <p>${Math.round(product.amount * product.price * priceIncreased)} kr</p>  
+                <p>${Math.round(product.amount * displayedPrice * priceIncreased)} kr</p>  
             </li>
             `;
 
@@ -190,9 +205,12 @@ function printCartProduct() {
         //if-sats för måndagsrabatten
         if (today.getDay() === 1 && today.getHours() <= 10){ // Om dagens datum är (måndag och klockan är mindre eller = 10 så ska.......////////////GLÖM INTE ÄNDRA TILL 1 = MÅNDAG /////////
             sum *= 0.9;
-            mondaySaleMessage += 'Måndagsrabatt: 10% på hela beställningen'
+            mondaySaleMessage += '🎉 Måndagsrabatt: 10% på hela beställningen'
         } 
         
+        if (amountDiscount === true) {
+            discountMessage += '🎉 Mängdrabatt: 10% rabatt vid köp av 10 samma produkter.'
+        }
     
         let shippingPrice = shipping + (sum * 0.1); ////tar 10procent av summan och adderar till fraktkostnad   
         
@@ -201,7 +219,6 @@ function printCartProduct() {
         } 
 
         let finalSum = Math.round(sum + shippingPrice)
-        console.log(finalSum);
 
         ///////Summeringen av alla produkter/////////////// ta bort onward ifall jag inte ska ha något bruk för den
         if (reservedProductsAmount > 0) {
@@ -214,11 +231,12 @@ function printCartProduct() {
                 </div>
                 <section>
                     <ul>
+                        <li class="cart-summary-message">${discountMessage}</li>
                         <li class="cart-summary-message">${mondaySaleMessage}</li>
-                        <li class="cart-summary-message">Fraktpris: + ${Math.round(shippingPrice)} kr</li>
+                        <li class="cart-summary-message"> 🛻 Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                     </ul>
                     <h3>Totalsumma: ${finalSum} kr</h3>
-                    <button class="onward">Gå vidare med beställning</button>  
+                    <button class="onward">Gå vidare</button>  
                 </section>
             </li>`
         } else {
@@ -393,8 +411,6 @@ function validatePersonalId () {
    return personalIdRegEx.exec(personalID.value);
 }
 
-const errorFirsName = document.createElement("p");
-const errorFirsNameNode = document.createTextNode(`Du behöver fylla i ett förnamn!`);
 /*
 ** Funktionen kollar stegvis igenom att nödvändiga inputfält är ifyllda korrekt innan den aktiverar beställningsknappen
 */
