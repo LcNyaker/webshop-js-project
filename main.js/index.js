@@ -2,10 +2,10 @@
 import products from "../products.mjs";
 
 //Hämtar specifik UL tagg från HTML
+const header = document.querySelector('#header');
 const productListUl = document.querySelector('#product-list');
 const productCart = document.querySelector('#cart');
 const cartBtn = document.querySelector('#shopping-cart-button');
-
 
 ///Variablar för datum////
 const today = new Date();
@@ -17,11 +17,44 @@ const currentHour = today.getHours();
 
 let globalFinalSum = 0;
 let reservedProductsAmount = 0;
-
+let invoiceDisable = false;
 
 let priceIncreased = addedWeekendPrice();
 
 let amountDiscount = false
+
+const lastPage = document.querySelector('.contact-details')
+const firstNameInput = document.querySelector('#first-name');
+const lastNameInput = document.querySelector('#last-name');
+const adressInput = document.querySelector('#adress');
+const postNumberInput = document.querySelector('#post-number');
+const postCountyInput = document.querySelector('#post-county');
+// const portCodeInput = document.querySelector('#port-code'); kräver ingen valdering, därför onödig
+const phoneNumberInput = document.querySelector('#phone-number');
+const emailAdressInput = document.querySelector('#email-adress');
+const cardNumberInput = document.querySelector('#card-number');
+const cardYearInput = document.querySelector('#card-year');
+const cardMonthInput = document.querySelector('#card-month');
+const cardCvcInput = document.querySelector('#card-cvc');
+const consentCheckbox = document.querySelector('#consent-checkbox');
+const newsletterCheckbox = document.querySelector('#newsletter-checkbox');
+const personalID = document.querySelector('#personal-id');
+
+const inputs = [
+    firstNameInput,
+    lastNameInput,
+    adressInput,
+    postNumberInput,
+    postCountyInput,
+    phoneNumberInput,
+    emailAdressInput,
+    cardNumberInput,
+    cardYearInput,
+    cardMonthInput,
+    cardCvcInput,
+    consentCheckbox,
+    personalID
+];
 
 
 if (today.getDay() === 4 ) { /////////////testar att det är korrekt
@@ -65,6 +98,7 @@ function increaseProductCount(event) {
         products[foundProductIndex].discountedPrice = products[foundProductIndex].price; // Återställ pris om mängden är mindre än 10
     }
 
+    header.style.position = 'sticky';
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -97,6 +131,41 @@ function decreaseProductCount(event) {
     printProductList();
 
 }
+function updateProductAmountFromInput(e) {
+    const productId = Number(e.target.id.replace('input-', ''));
+    console.log(e.target.value)
+    const foundProductIndex = products.findIndex(product => product.id == productId);
+
+    if (e.key === "Enter") { // Kontrollera om användaren tryckt Enter
+        const newAmount = Number(e.target.value); // Hämta det nya värdet från input-fältet
+
+        if (isNaN(newAmount) || newAmount < 0) {
+            alert("Vänligen ange ett giltigt antal."); // Hantera ogiltiga värden
+            e.target.value = products[foundProductIndex].amount; // Återställ till tidigare värde
+            return;
+        }
+
+        // Uppdatera produktens mängd
+        products[foundProductIndex].amount = newAmount;
+
+        // Kontrollera om rabatt ska aktiveras eller avaktiveras
+        if (newAmount >= 10) {
+            products[foundProductIndex].discountedPrice = products[foundProductIndex].price * 0.9;
+            console.log('Rabatten aktiverad');
+            amountDiscount = true;
+        } else {
+            products[foundProductIndex].discountedPrice = products[foundProductIndex].price;
+            console.log('Rabatten avaktiverad');
+            amountDiscount = false;
+        }
+
+        // Uppdatera gränssnittet
+        printCartProduct();
+        printProductList();
+    }
+
+}  
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////Funktion som visar alla produkter på hemsidan////////////////////////////////////////////////////////////////
@@ -119,7 +188,7 @@ function printProductList() {
             <p>betyg:${getRatingHtml(product.rating)}</p>
             <label>
                 <button class="decrease" id="decrease-${product.id}">-</button>
-                <input type="number" min="0" value="${product.amount}"id="input-${product.id}">
+                <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}">
                 <button class="increase" id="increase-${product.id}">+</button>
             </label>
         </li>
@@ -140,7 +209,15 @@ function printProductList() {
     button.addEventListener('click', decreaseProductCount);
     });
     
+
+    const productAmountInputs = document.querySelectorAll('input.amount');
+    productAmountInputs.forEach(input => {
+
+    input.addEventListener('change', updateProductAmountFromInput);
+    input.addEventListener('keypress', updateProductAmountFromInput);
+    })
 };
+
 
 //printar/uppdaterar listan med alla produkter på nytt
 printProductList ();
@@ -236,12 +313,12 @@ function printCartProduct() {
                         <li class="cart-summary-message"> 🛻 Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                     </ul>
                     <h3>Totalsumma: ${finalSum} kr</h3>
-                    <button class="onward">Gå vidare</button>  
+                    <button class="onward" href="#contact-details-id">Gå vidare</button>  
                 </section>
             </li>`
         } else {
             productCart.innerHTML = 'Din varukorg är tömd';
-            lastPage.classList.add('hidden'); //tar bort kontakt
+            lastPage.classList.add('hidden'); //håller sista delen av sidan hidden.
         }
 
         const increaseButtons = document.querySelectorAll('button.increase'); 
@@ -253,12 +330,14 @@ function printCartProduct() {
         decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
         });
-
+        console.log(finalSum);
         // Aktiverar funktionen som summan är 800kr eller mer
         if (finalSum > 800) {
             disableInvoice();
             alert('Faktura som betalmetod är tyvärr inte längre möjlig.');
-        } 
+        } else {
+            enableInvoice();
+        }
         
         if (sum + shippingPrice > 25) {
         const onward = document.querySelector('.onward');
@@ -270,22 +349,43 @@ function printCartProduct() {
         return `${finalSum}`
 }
 
-const lastPage = document.querySelector('.contact-details')
 
 function showLastPage() {
-    lastPage.classList.remove('hidden');   
+    lastPage.classList.remove('hidden'); 
+    lastPage.scrollIntoView({
+        behavior: 'smooth' // Lägger till mjuk scrollning
+      });  
+    header.style.position = 'static';
+    firstNameInput.focus();
+    
 }
 
-
+const errorMessage = document.createElement('p');
+errorMessage.id = 'error-invoice';
+errorMessage.innerHTML = 'Tyvärr kan vi inte erbjuda faktura som <br> betalningsalternativ för belopp på 800 kr eller mer.';
 /*
 **funktionen låser fältet för personnummer och lämnar ett meddelande till användaren
 */
 function disableInvoice() {
+    if (invoiceDisable === false) {    
     personalID.disabled = true;
-    invoiceOption.innerHTML +=`<p>Tyvärr kan vi inte erbjuda faktura som <br>  
-    betalningsalternativ för belopp på 800 kr eller mer.</p>`;
+    invoiceOption.appendChild(errorMessage);
+    invoiceOption.style.border = "2px solid red"
+    invoiceDisable = true;      
+    }    
 }
 
+/*
+**funktionen låser upp fältet för personnummer åt användaren
+*/
+function enableInvoice() {
+    personalID.removeAttribute('disabled');
+    invoiceDisable = false;    
+    invoiceOption.style.border = "0px";
+    if (errorMessage) {
+        errorMessage.remove();
+    }
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -313,7 +413,7 @@ function sortOnPrice() {
     printProductList();
 }
 
-function sortOnName() { //funktion fungerar inte se vidare
+function sortOnName() { 
     products.sort((a, b) => a.name.localeCompare (b.name));
     console.log ("Namn är vald");
     printProductList();
@@ -341,25 +441,8 @@ function sortOnCategory() {
 
 const paymentRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
 
-const inputs = [
-    document.querySelector('#first-name'),
-    document.querySelector('#last-name'),
-    document.querySelector('#adress'),
-    document.querySelector('#post-number'),
-    document.querySelector('#post-county'),
-    document.querySelector('#port-code'),
-    document.querySelector('#phone-number'),
-    document.querySelector('#email-adress'),
-    document.querySelector('#card-number'),
-    document.querySelector('#card-year'),
-    document.querySelector('#card-month'),
-    document.querySelector('#card-cvc'),
-    document.querySelector('#personal-id'),
-    document.querySelector('#consent-checkbox')
-];
 
-const personalID = inputs[12];
-personalID.disabled = false;
+
 
 //Vardera container för invoice och card
 const invoiceOption = document.querySelector('#invoice-id'); 
@@ -392,7 +475,7 @@ inputs.forEach(input => {
 **funktionen togglar de båda knapparna och även hittar deras respektive värde
 */
 paymentRadios.forEach(radioBtn => {
-    radioBtn.addEventListener('change', switchPaymentMethod); 
+    radioBtn.addEventListener('change', switchPaymentMethod);
 });
 
 function switchPaymentMethod(e) {
@@ -403,11 +486,25 @@ function switchPaymentMethod(e) {
     console.log(selectedPaymentoption);
 };
 
+// för t12t så behöver man kunna fylla i eller ur checkboxar med enter
+newsletterCheckbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+    newsletterCheckbox.checked = !newsletterCheckbox.checked;
+    console.log('Enter trycktes!');
+    }
+  });
+
+consentCheckbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+    consentCheckbox.checked = !consentCheckbox.checked;
+    console.log('Enter trycktes!');
+    }
+  });
 /*
 ** Funktionen returnerar jämförelsen av regEx och inputens värde
 */
 
-function validatePersonalId () {
+function validatePersonalId() {
    return personalIdRegEx.exec(personalID.value);
 }
 
@@ -418,33 +515,47 @@ function activateOrderBtn() {
 
     orderBtn.setAttribute('disabled', '');
 
-    if (!inputs[0].value.trim()) {
+    if (!firstNameInput.value.trim()) {
         console.warn('First name is mandatory')
+        errorMsgFirstName.classList.remove('hidden');
         return;
+    } else {errorMsgFirstName.classList.add('hidden');    
     }
-    if (!inputs[1].value.trim()) {
+    if (!lastNameInput.value.trim()) {
         console.warn('Last name is mandatory')
+        errorMsgLastName.classList.remove('hidden');
         return;
+    } else {errorMsgLastName.classList.add('hidden');    
     }
-    if (!inputs[2].value.trim())  {
+    if (!adressInput.value.trim())  {
         console.warn('We need an adress for the delivery')
+        errorMsgAdress.classList.remove('hidden');
         return;
+    } else {errorMsgAdress.classList.add('hidden');    
     }
-    if (postNumberRegEx.exec(inputs[3].value) === null) {
+    if (postNumberRegEx.exec(postNumberInput.value) === null) {
         console.warn('Postnumber doesnt exist')
+        errorMsgPostNumber.classList.remove('hidden');
         return;
+    } else {errorMsgPostNumber.classList.add('hidden');    
     }
-    if (!inputs[4].value.trim()) {
+    if (!postCountyInput.value.trim()) {
         console.warn('Dont forget to fill in county')
+        errorMsgPostCounty.classList.remove('hidden');
         return;
+    } else {errorMsgPostCounty.classList.add('hidden');    
     }
-    if (phoneNumberRegEx.exec(inputs[6].value) === null) {
+    if (phoneNumberRegEx.exec(phoneNumberInput.value) === null) {
         console.warn('Phonenumber not valid')
+        errorMsgPhoneNumber.classList.remove('hidden');
         return;
+    } else {errorMsgPhoneNumber.classList.add('hidden');    
     }
-    if (emailAdressRegEx.exec(inputs[7].value) === null) {
+    if (emailAdressRegEx.exec(emailAdressInput.value) === null) {
         console.warn('Email is not valid');
+        errorMsgEmailAdress.classList.remove('hidden');
         return;
+    } else {errorMsgEmailAdress.classList.add('hidden');    
     }
     if (selectedPaymentoption === 'invoice' && !validatePersonalId()) {
         console.warn('Personnummer är inkorrekt');
@@ -452,19 +563,20 @@ function activateOrderBtn() {
     }
     
     if (selectedPaymentoption === 'card') {
-        if (cardNumberRegEx.exec(inputs[8].value) === null) {
+        if (cardNumberRegEx.exec(cardNumberInput) === null) {
             console.warn('kortnummer är inte giltligt!');
             return;
         }
 
-        let yearInput = Number(inputs[9].value);
+        let yearInput = Number(cardYearInput.value);
         const shortYear = Number(String(today.getFullYear()).substring(2));
+
         if (yearInput > shortYear + 5 || yearInput < shortYear){
             console.warn('Card years is not valid');
             return;
         }
 
-        let monthInput = Number(inputs[10].value.padStart(2, '0'));
+        let monthInput = Number(cardMonthInput.value.padStart(2, '0'));
         if (monthInput > 12 || monthInput <= 0 ) {
             console.warn('month is not valid');
             return;
@@ -474,12 +586,12 @@ function activateOrderBtn() {
             console.warn('Your card has expired');
             return;
         }
-        if (inputs[11].value.length !== 3) {
+        if (cardCvcInput.value.length !== 3) {
             console.warn('CVC is not correct');
             return;
         }    
     }
-    if (!inputs[13].checked) {
+    if (!consentCheckbox.checked) {
         console.warn('You must approve the processing of your personal data.');
         return;
     }
@@ -518,7 +630,12 @@ function acceptOrder() {
     - Dagens datum: ${today.toLocaleDateString('sv-SE', showCaseDate)}.
     - Din beställning innehåller sammanlagt ${reservedProductsAmount} produkter.
     - Totalbeloppet på din beställning landade på ${globalFinalSum} kr. 
-    - Förväntad leveranstid är ${shippingDate.toLocaleDateString('sv-SE', showCaseDate)}.`)
+    - Förväntad leveranstid är ${shippingDate.toLocaleDateString('sv-SE', showCaseDate)}.
+    
+    Ha en underbar dag!
+
+    Med vänliga hälsningar 
+    Henkas Plektrumfabrik`)
 }
 
 //specif funktion för beställningsknappen som rensar allt och ger ett meddelande
@@ -531,11 +648,11 @@ function canceledByTimeout () {
     input.value = '';
     });
             
-    inputs[13].checked = false;
+    consentCheckbox.checked = false;
         
     printProductList();
     printCartProduct();
-    alert('Du var för långsam!')
+    alert('Du var för långsam! din order avbryts.')
 }
 
 //funktion för att avbryta order
@@ -548,8 +665,20 @@ function cancelOrder() {
     input.value = '';
     });
     
-    inputs[13].checked = false;
+    consentCheckbox.checked = false;
+
+    header.classList.remove('hidden');
+
+    alert('Du valde att avbryta din order.');
 
     printProductList();
     printCartProduct();
 }
+
+const errorMsgFirstName = document.querySelector('#error-message-first-name');
+const errorMsgLastName = document.querySelector('#error-message-last-name');
+const errorMsgAdress = document.querySelector('#error-message-adress');
+const errorMsgPostNumber = document.querySelector('#error-message-post-number');
+const errorMsgPostCounty = document.querySelector('#error-message-post-county');
+const errorMsgPhoneNumber = document.querySelector('#error-message-phone-number');
+const errorMsgEmailAdress = document.querySelector('#error-message-email-adress');
