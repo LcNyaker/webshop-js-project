@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade">
 </head>
 <body>
-    <header>
+    <header id="header">
             <figure>
                 <img src="assets/Logotyp-henkas-plektrumfabrik.png" class="logotyp" width="1024" height="1024" loading="eager" aria-label="Logo for Henkas Plektrumfabrik, featuring a stylized guitar pick with abstract blue and yellow sections, intersecting lines, and circular accents. The text 'Plektrum Fabrik' is displayed below the pick.">
             </figure>
@@ -31,7 +31,7 @@
                 <h2>Vilka är vi?</h2>
                 <p>Henkas Plektrumfabrik grundades av Henrik "Henka" Nyåker i de värmländska skogarna på 80-talet, med en passion för att skapa plektrum av högsta kvalitet. Vi tillverkar handgjorda plektrum som ger både nybörjare och proffs bättre kontroll och uttryck i sitt spel. Varje plektrum är noggrant utformat och tillverkat med omsorg för detaljer, för att ge en unik spelupplevelse.</p>
                 <p>Vår filosofi är enkel: att skapa plektrum som inte bara förbättrar ljudet, utan också ger en känsla av personlig kontakt mellan musiker och instrument. Vi använder endast de finaste materialen för att säkerställa hållbarhet och bästa möjliga ljudkvalitet. Oavsett om du spelar akustisk gitarr, elgitarr eller bas, har vi plektrum som passar just ditt spel.</p> 
-                <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra tekniker och design för att möta de växande kraven från musiker världen över. Från de första prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att fortsätta erbjuda produkter som inspirerar och levererar resultat.s</p> 
+                <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra tekniker och design för att möta de växande kraven från musiker världen över. Från de första prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att fortsätta erbjuda produkter som inspirerar och levererar resultat.</p> 
             </div>
             <figure>
                 <img class="factory-img" src="assets/Image-of-factory.jpg" width="640" height="640" loading="eager">
@@ -67,26 +67,33 @@
                 <label>Förnamn:
                     <input type="text" id="first-name">
                 </label>
+                <span id="error-message-first-name" class="hidden"> ⛔ You must give us a first name;</span>
                 <label>Efternamn:
                     <input type="text" id="last-name">
+                    <span id="error-message-last-name" class="hidden"> ⛔ You must give us a last name</span>
                 </label>
                 <label>Address:
                     <input type="text" id="adress">
+                    <span id="error-message-adress" class="hidden"> ⛔ You must give us an adress</span>
                 </label>
                 <label>Postnummer:
                     <input type="number" id="post-number">
+                    <span id="error-message-post-number" class="hidden">⛔ You must give us a valid post-number</span>
                 </label>
                 <label>Postort:
                     <input type="text" id="post-county">
+                    <span id="error-message-post-county" class="hidden">⛔ You must give us a valid post-number</span>
                 </label>
                 <label>ev.Portkod:
                     <input type="text" id="port-code">
                 </label>
                 <label>Telefon(mobil):
                     <input type="text" id="phone-number">
+                    <span id="error-message-phone-number" class="hidden">⛔ You must give us a valid phone number</span>
                 </label>
                 <label>Epostadress:
                     <input type="text" id="email-adress">
+                    <span id="error-message-email-adress" class="hidden">⛔ You must give us a valid email adress</span>
                 </label>
             </form>
             <section class="payment-section">
@@ -99,14 +106,12 @@
                         <input type="radio" name="payment-option" value="card" checked></input>
                     </label>: Kort
                 </div>
-
                 <div class="invoice hidden" id="invoice-id">
                     <label>
                         <span>Personnummer</span>
-                        <input type="text" id="personal-id" placeholder="YYYYMMDD-****" disabled>
+                        <input type="text" id="personal-id" placeholder="YYYYMMDD-****">
                     </label>
                 </div>
-
                 <div class="card" id="card-id">
                     <label>
                         <span>Kortnummer</span>
@@ -130,7 +135,7 @@
                         <p>Jag godkänner behandlingen av mina personuppgifter</p>
                     </label>
                     <label>
-                        <input type="checkbox" checked>
+                        <input type="checkbox" id="newsletter-checkbox"checked>
                         <p>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!</p>
                     </label>
             </div>
