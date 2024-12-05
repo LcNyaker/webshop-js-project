@@ -5,7 +5,7 @@ const products = [
         amount: 0, 
         price: 16, 
         rating: 3, 
-        category: 'plast',
+        category: 'plast 🧴',
         discountPrice: null,    
         img: {
             url: 'assets/product-images/Product-PluckyMcStrumface.png',
@@ -20,7 +20,7 @@ const products = [
         amount: 0, 
         price: 35, 
         rating: 5, 
-        category: 'trä',    
+        category: 'trä 🪵',    
         img: {
             url: 'assets/product-images/Product-Pickachu.jpg',
             widht: 1024,
@@ -34,12 +34,12 @@ const products = [
         amount: 0, 
         price: 38, 
         rating: 2, 
-        category: 'metall',    
+        category: 'metall 🔩',    
         img: {
             url: 'assets/product-images/Product-Plectrickery.png',
             widht: 1024,
             height: 1024, 
-            alt: 'Ett metalliskt gitarrplektrum med texten "Plectrickery" ingraverad upptill, omgiven av geometriska mönster och linjer som ger ett elegant och modernt utseende.',
+            alt: 'A metallic guitar plectrum with the text "Plectrickery" engraved at the top, surrounded by geometric patterns and lines for a sleek and modern look.',
         },
     },
     {
@@ -48,11 +48,12 @@ const products = [
         amount: 0, 
         price: 42, 
         rating: 3, 
-        category: 'metall',    
+        category: 'metall 🔩',    
         img: {
             url: 'assets/product-images/Product-ShredZeppelin.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'A close-up of a plectrum with a unique design. The base of the plectrum is in silver metal, and its center is filled with an intricate texture of intertwined golden threads',
         },
     },
     {
@@ -61,11 +62,12 @@ const products = [
         amount: 0, 
         price: 26, 
         rating: 2, 
-        category: 'trä',    
+        category: 'trä 🪵',    
         img: {
             url: 'assets/product-images/Product-SirStrumsALot.jpg',
             widht: 1024,
-            height: 1024, 
+            height: 1024,
+            alt: 'A light wood plectrum with a detailed engraving on the front. The engraving shows an illustration of a man wearing a tall hat surrounded by decorative lines. The text above and below the illustration reads: “SIR STRUMS-A-LOT',  
         },
     },
     {
@@ -74,11 +76,12 @@ const products = [
         amount: 0, 
         price: 35, 
         rating: 5, 
-        category: 'trä',    
+        category: 'trä 🪵',    
         img: {
             url: 'assets/product-images/Product-PickleRicktum.jpg',
             widht: 1024,
-            height: 1024, 
+            height: 1024,
+            alt: 'A wooden plectrum with a cartoon design depicting a green face with a surprised expression, inspired by a pickle. The text "Pickle" is written at the top in a playful style. The plectrum has a light wood finish with a small hole in the bottom', 
         },
     },
     {
@@ -87,11 +90,12 @@ const products = [
         amount: 0, 
         price: 18, 
         rating: 4, 
-        category: 'plast',    
+        category: 'plast 🧴',    
         img: {
             url: 'assets/product-images/Product-StrumbAndDumb.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'An orange plectrum with a black and white illustration of a person playing a mandolin. The plectrum has the text "STRUM" in large letters and slogans as well as decorative texts around the edge.',
         },
     },
     {
@@ -100,11 +104,12 @@ const products = [
         amount: 0, 
         price: 26, 
         rating: 2, 
-        category: 'trä',    
+        category: 'trä 🪵',    
         img: {
             url: 'assets/product-images/Product-Pickasso.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'A wooden plectrum with a unique, colorful geometric design in red, blue, yellow and green. The design is reminiscent of a stylized face mask with symmetrical patterns and takes inspiration from the great artist Pablo Picasso works.',
         },
     },
     {
@@ -113,11 +118,12 @@ const products = [
         amount: 0, 
         price: 20, 
         rating: 5, 
-        category: 'plast',    
+        category: 'plast 🧴',    
         img: {
             url: 'assets/product-images/Product-PluckNorris.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'A white plectrum with a detailed black and white illustration of a man with a cowboy hat and beard, which makes a powerful and iconic impression. The inspiration is based on the well-known profile Chuck Norris.',
         },
     },
     {
@@ -126,11 +132,12 @@ const products = [
         amount: 0, 
         price: 34, 
         rating: 1, 
-        category: 'metall',    
+        category: 'metall 🔩',    
         img: {
             url: 'assets/product-images/Product-StrumdogMillionaire.jpg',
             widht: 1024,
             height: 1024, 
+            alt: 'A blue plectrum with a raised, detailed gold decoration that includes an ornate frame and the text "STRUMDOG MILLIONAIRE". The plectrum has a luxurious and elegant design that gives the impression of exclusivity',
         },
     }
 ];
