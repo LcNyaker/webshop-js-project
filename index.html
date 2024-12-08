@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Henkas Plektrumfabrik - Plektrum för perfekta ackord</title>
     <link rel="stylesheet" href="main.css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&family=Lily+Script+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&family=Lily+Script+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade" rel="stylesheet">
 </head>
+
 <body>
     <header id="header">
-            <figure>
-                <img src="assets/page-img/Logotyp-henkas-plektrumfabrik.png" class="logotyp" width="1024" height="1024" loading="eager" alt="Logo for Henkas Plektrumfabrik, featuring a stylized guitar pick with abstract blue and yellow sections, intersecting lines, and circular accents. The text 'Plektrum Fabrik' is displayed below the pick.">
-            </figure>
-                <section>
-                    <h1>Henkas plektrumfabrik</h1>
-                    <p>Plektrum för perfekta ackord</p>
-                </section>
-            <div  class="shopping-cart-button" id="shopping-cart-button">
-                <a class="material-symbols-outlined" href="#shopping-cart-id">shopping_cart</a>
-            </div>
+        <figure>
+            <img src="assets/page-img/Logotyp-henkas-plektrumfabrik.png" class="logotyp" width="1024" height="1024"
+                loading="eager"
+                alt="Logo for Henkas Plektrumfabrik, featuring a stylized guitar pick with abstract blue and yellow sections, intersecting lines, and circular accents. The text 'Plektrum Fabrik' is displayed below the pick.">
+        </figure>
+        <section>
+            <h1>Henkas Plektrumfabrik</h1>
+            <p>Plektrum för perfekta ackord</p>
+        </section>
+        <div class="shopping-cart-button" id="shopping-cart-button">
+            <a class="material-symbols-outlined" href="#shopping-cart-id" aria-label="Gå till varukorgen">shopping_cart</a>
+            <span class="shopping-cart-counter hidden" id="shopping-cart-counter"></span>
+        </div>
     </header>
     <main>
         <section class="about-us">
             <div>
                 <h2>Vilka är vi?</h2>
-                <p>Henkas Plektrumfabrik grundades av Henrik "Henka" Nyåker i de värmländska skogarna på 80-talet, med en passion för att skapa plektrum av högsta kvalitet. Vi tillverkar handgjorda plektrum som ger både nybörjare och proffs bättre kontroll och uttryck i sitt spel. Varje plektrum är noggrant utformat och tillverkat med omsorg för detaljer, för att ge en unik spelupplevelse.</p>
-                <p>Vår filosofi är enkel: att skapa plektrum som inte bara förbättrar ljudet, utan också ger en känsla av personlig kontakt mellan musiker och instrument. Vi använder endast de finaste materialen för att säkerställa hållbarhet och bästa möjliga ljudkvalitet. Oavsett om du spelar akustisk gitarr, elgitarr eller bas, har vi plektrum som passar just ditt spel.</p> 
-                <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra tekniker och design för att möta de växande kraven från musiker världen över. Från de första prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att fortsätta erbjuda produkter som inspirerar och levererar resultat.</p> 
+                <p>Henkas Plektrumfabrik grundades av Henrik "Henka" Nyåker i de värmländska skogarna på 80-talet, med
+                    en passion för att skapa plektrum av högsta kvalitet. Vi tillverkar handgjorda plektrum som ger både
+                    nybörjare och proffs bättre kontroll och uttryck i sitt spel. Varje plektrum är noggrant utformat
+                    och tillverkat med omsorg för detaljer, för att ge en unik spelupplevelse.</p>
+                <p>Vår filosofi är enkel: att skapa plektrum som inte bara förbättrar ljudet, utan också ger en känsla
+                    av personlig kontakt mellan musiker och instrument. Vi använder endast de finaste materialen för att
+                    säkerställa hållbarhet och bästa möjliga ljudkvalitet. Oavsett om du spelar akustisk gitarr,
+                    elgitarr eller bas, har vi plektrum som passar just ditt spel.</p>
+                <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra
+                    tekniker och design för att möta de växande kraven från musiker världen över. Från de första
+                    prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet
+                    och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att
+                    fortsätta erbjuda produkter som inspirerar och levererar resultat.</p>
             </div>
             <figure>
-                <img class="factory-img" src="assets/page-img/Image-of-factory.jpg" width="640" height="640" alt="A modern building covered in shiny blue tiles that reflect the surroundings, with windows that break up the facade. The building stands on a stone-paved courtyard, surrounded by industrial architecture in the background under a cloudy sky." loading="eager">
+                <img class="factory-img" src="assets/page-img/Image-of-factory.jpg" width="640" height="640"
+                    alt="A modern building covered in shiny blue tiles that reflect the surroundings, with windows that break up the facade. The building stands on a stone-paved courtyard, surrounded by industrial architecture in the background under a cloudy sky."
+                    loading="eager">
             </figure>
         </section>
         <div>
             <fieldset class="sort">
                 <legend>Sortera på</legend>
                 <label> Pris:
-                    <input type="radio" name="radio-buttons-sorting" id="sort-price">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-price" aria-label="Sortera efter pris">
                 </label>
                 <label> | Namn:
-                    <input type="radio" name="radio-buttons-sorting" id="sort-name">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-name"  aria-label="Sortera efter namn">
                 </label>
                 <label> | Betyg:
-                    <input type="radio" name="radio-buttons-sorting" id="sort-rating">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-rating"  aria-label="Sortera efter betyg">
                 </label>
                 <label> | Kategori:
-                    <input type="radio" name="radio-buttons-sorting" id="sort-category">
+                    <input type="radio" name="radio-buttons-sorting" id="sort-category"  aria-label="Sortera efter kategori">
                 </label>
             </fieldset>
         </div>
@@ -57,8 +76,8 @@
         </ul>
         <section class="shopping-cart" id="shopping-cart-id">
             <h2>Varukorgssammantställning</h2>
-            <ul id="cart"> 
-                <li>Din varukorg</li>
+            <ul class="cart" id="cart">
+                <li>Din varukorg är tom</li>
             </ul>
         </section>
         <section class="contact-details hidden">
@@ -66,48 +85,48 @@
             <form>
                 <div>
                     <label>Förnamn:
-                        <input type="text" id="first-name">
+                        <input type="text" id="first-name" aria-label="Ange ditt förnamn">
                     </label>
                     <span id="error-message-first-name" class="hidden"> ⛔ You must give us a first name</span>
                 </div>
-                <div>                
+                <div>
                     <label>Efternamn:
-                        <input type="text" id="last-name">
+                        <input type="text" id="last-name" aria-label="Ange ditt efternamn">
                     </label>
                     <span id="error-message-last-name" class="hidden"> ⛔ You must give us a last name</span>
                 </div>
                 <div>
                     <label>Address:
-                        <input type="text" id="adress">
+                        <input type="text" id="adress" aria-label="Ange din adress">
                     </label>
-                    <span id="error-message-adress" class="hidden"> ⛔ You must give us an adress</span>
+                    <span id="error-message-adress" class="hidden" > ⛔ You must give us an adress</span>
                 </div>
                 <div>
                     <label>Postnummer:
-                        <input type="number" id="post-number">
+                        <input type="number" id="post-number" aria-label="Ange ditt postnummer">
                     </label>
                     <span id="error-message-post-number" class="hidden">⛔ You must give us a valid post-number</span>
                 </div>
                 <div>
                     <label>Postort:
-                        <input type="text" id="post-county">
+                        <input type="text" id="post-county" aria-label="Ange din ort">
                     </label>
                     <span id="error-message-post-county" class="hidden">⛔ You must give us a post-county</span>
                 </div>
                 <div>
                     <label>ev.Portkod:
-                        <input type="text" id="port-code">
+                        <input type="text" id="port-code" aria-label="Ange om du har portkod">
                     </label>
                 </div>
                 <div>
                     <label>Telefon(mobil):
-                        <input type="text" id="phone-number">
+                        <input type="text" id="phone-number" aria-label="Ange ditt telefonnummer">
                     </label>
                     <span id="error-message-phone-number" class="hidden">⛔ You must give us a valid phone number</span>
                 </div>
                 <div>
                     <label>Epostadress:
-                        <input type="text" id="email-adress">
+                        <input type="text" id="email-adress" aria-label="Ange din epostadress">
                     </label>
                     <span id="error-message-email-adress" class="hidden">⛔ You must give us a valid email adress</span>
                 </div>
@@ -116,10 +135,10 @@
                 <h2>Val av betalsätt:</h2>
                 <div class="payment-choice">
                     <label>
-                        <input type="radio" name="payment-option" value="invoice">
+                        <input type="radio" name="payment-option" value="invoice" aria-label="Betala med faktura">
                     </label>: Faktura
                     <label>
-                        <input type="radio" name="payment-option" value="card" checked>
+                        <input type="radio" name="payment-option" value="card" aria-label="Betala med kort" checked>
                     </label>: Kort
                 </div>
                 <div class="invoice hidden" id="invoice-id">
@@ -127,6 +146,8 @@
                         <span>Personnummer</span>
                         <input type="text" id="personal-id" placeholder="YYYYMMDD-****">
                     </label>
+                    <span id="error-message-personal-id" class="hidden">⛔ your social security number does not
+                        exist</span>
                 </div>
                 <div class="card" id="card-id">
                     <label>Kortnummer:
@@ -138,7 +159,7 @@
                             <input type="number" class="small-input" id="card-year" placeholder="YY">
                         </label>
                         <label>
-                            <input type="number" class="small-input" id="card-month" placeholder="MM"> 
+                            <input type="number" class="small-input" id="card-month" placeholder="MM">
                         </label>
                     </div>
                     <label>CVC:
@@ -147,19 +168,20 @@
                 </div>
             </section>
             <div class="checkbox-container">
-                    <label>Jag godkänner behandlingen av mina personuppgifter
-                        <input type="checkbox" id="consent-checkbox">
-                    </label>
-                    <label>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!
-                        <input type="checkbox" id="newsletter-checkbox" checked>
-                    </label>
+                <label>Jag godkänner behandlingen av mina personuppgifter
+                    <input type="checkbox" id="consent-checkbox" aria-label="Jag godkänner behandlingen av mina personuppgifter">
+                </label>
+                <label>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!
+                    <input type="checkbox" id="newsletter-checkbox" aria-label="Jag vill ha nyhetsbrev från Henkas Plektrumfabrik!" checked>
+                </label>
             </div>
             <div class="last-choice">
-                <button id="cancel-button">Avbryt beställning</button>
-                <button id="order-button" disabled>Skicka beställning</button>
+                <button class="cancel-button" id="cancel-button" aria-label="Avbryt din beställning">Avbryt beställning</button>
+                <button class="order-button" id="order-button" aria-label="Skicka din beställning" disabled>Skicka beställning</button>
             </div>
         </section>
     </main>
     <script type="module" src="main.js/index.js"></script>
 </body>
+
 </html>
