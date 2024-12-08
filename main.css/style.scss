@@ -88,7 +88,7 @@ input[type=number] {
 
 /* Fokusera alla interaktiva element med en starkare visuell feedback */
 a:focus, button:focus, input:focus, textarea:focus, select:focus {
-  outline: none;  /* Ta bort standardkontur */
+  outline: none;  /* Tar bort kontur */
   border: 2px solid #0078D4; /* Lägg till en tydlig blå kant */
   box-shadow: 0 0 5px rgba(0, 120, 212, 0.8); /* Lägg till en skugga för att göra det tydligt */
   background-color: #f0f8ff; /* Ljus bakgrund för bättre synlighet */
@@ -134,7 +134,6 @@ header section p {
   position: fixed;
   width: 100px;
   min-height: 100px;
-  top: 30px;
   right: 15px;
   color: black;
   background-color: #d8d4bf;;
@@ -153,8 +152,30 @@ header section p {
   text-decoration: none;
   color: black;
 }
+@keyframes greenPulse {
+  0% {
+      background-color: #d8d4bf; /* Ursprunglig färg */
+  }
+  50% {
+      background-color: #32cd32; /* Grön färg */
+  }
+  100% {
+      background-color: #d8d4bf; /* Tillbaka till ursprunglig färg */
+  }
+}
 .button-animate {
   animation: greenPulse 0.9s ease-in-out;
+}
+.shopping-cart-counter {
+  position: absolute;
+  top: 55px;
+  left: 55px;
+  min-height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: black;
+  color: white;
 }
 .about-us {
   display: flex;
@@ -234,7 +255,6 @@ header section p {
   min-height: 50px;
   text-align: center;
   border-radius: 15px;
-  appearance: default;
 }
 .shopping-cart {
   text-align: center;
@@ -242,7 +262,7 @@ header section p {
 .shopping-cart h2 {
   color: white;
 }
-#cart {
+.cart {
   min-height: auto;
   border-radius: 15px;
   border: 3px solid black;
@@ -293,6 +313,7 @@ header section p {
 .cart-summary div {
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 50px;
   margin-right: 10px;
   margin-left: 10px;
@@ -321,15 +342,40 @@ header section p {
 .onward {
   min-height: 50px;
   margin-right: 20px;
-  border-radius: 10px;;
+  border-radius: 10px;
+  border: 2px solid black;
   background-color: lightgreen;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.onward:hover {
+  animation: pulse 1.5s infinite; 
+}
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+  }
+  50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.7);
+  }
+  100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+  }
 }
 .cart-summary-message {
   list-style: none;
 }
 .contact-details h2 {
   text-align: center;
-  
 }
 .contact-details {
   display: flex;
@@ -392,11 +438,16 @@ header section p {
 }
 .card-date span {
   margin-right: 40%;
+  padding-left: 4px;
 }
 .small-input {
   width: 50px;
   display: flex;
   justify-content: flex-end;
+}
+.invoice {
+  display: flex;
+  flex-direction: column;
 }
 .hidden {
   display: none;
@@ -427,37 +478,25 @@ header section p {
   margin: 20px;
   border-radius: 10px;
 }
-#cancel-button {
+.cancel-button {
   background-color: lightcoral
 }
-#order-button {
+.order-button {
   background-color: lightgreen;
+
   &:disabled {
     background-color: lightgray;
     cursor: not-allowed;
   }
 }
-
-@keyframes greenPulse {
-  0% {
-      background-color: #d8d4bf; /* Ursprunglig färg */
-  }
-  50% {
-      background-color: #32cd32; /* Grön färg */
-  }
-  100% {
-      background-color: #d8d4bf; /* Tillbaka till ursprunglig färg */
-  }
-}
-
 @media (min-width: 768px) {
 header {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   padding-right: 50px;
-  }
-#shopping-cart-button {
+}
+.shopping-cart-button {
   position: relative;
   display: flex;
   border: none;
@@ -520,5 +559,8 @@ header {
   .product-container {
     min-width: 400px;
     margin: 10px;
+  }
+  .cart-summary div {
+    justify-content: flex-start;
   }
 }
