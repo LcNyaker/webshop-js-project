@@ -19,7 +19,7 @@ https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
 
 
 ## Screenshots
-![Min bild](.\assets\validation-report\validator.w3.org_nu_ css.png")
+![Min bild] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png)
 
 
 ## Tech Stack
