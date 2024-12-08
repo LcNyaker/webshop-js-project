@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans&family=Lily+Script+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade" rel="stylesheet">
 </head>
 <body>
     <header id="header">
             <figure>
-                <img src="assets/Logotyp-henkas-plektrumfabrik.png" class="logotyp" width="1024" height="1024" loading="eager" aria-label="Logo for Henkas Plektrumfabrik, featuring a stylized guitar pick with abstract blue and yellow sections, intersecting lines, and circular accents. The text 'Plektrum Fabrik' is displayed below the pick.">
+                <img src="assets/Logotyp-henkas-plektrumfabrik.png" class="logotyp" width="1024" height="1024" loading="eager" alt="Logo for Henkas Plektrumfabrik, featuring a stylized guitar pick with abstract blue and yellow sections, intersecting lines, and circular accents. The text 'Plektrum Fabrik' is displayed below the pick.">
             </figure>
                 <section>
                     <h1>Henkas plektrumfabrik</h1>
                     <p>Plektrum för perfekta ackord</p>
                 </section>
-            <button id="shopping-cart-button">
+            <div  class="shopping-cart-button" id="shopping-cart-button">
                 <a class="material-symbols-outlined" href="#shopping-cart-id">shopping_cart</a>
-                <a class="shopping-info" id="shopping-info"></a>
-            </button>
+            </div>
     </header>
     <main>
         <section class="about-us">
@@ -34,7 +33,7 @@
                 <p>Vår verksamhet bygger på en lång tradition av hantverk och innovation. Vi har ständigt utvecklat våra tekniker och design för att möta de växande kraven från musiker världen över. Från de första prototyperna till dagens avancerade modeller har vi aldrig släppt på vårt engagemang för kvalitet och funktionalitet. Vi är stolta över att vara en del av varje musikers resa och strävar efter att fortsätta erbjuda produkter som inspirerar och levererar resultat.</p> 
             </div>
             <figure>
-                <img class="factory-img" src="assets/Image-of-factory.jpg" width="640" height="640" loading="eager">
+                <img class="factory-img" src="assets/Image-of-factory.jpg" width="640" height="640" alt="A modern building covered in shiny blue tiles that reflect the surroundings, with windows that break up the facade. The building stands on a stone-paved courtyard, surrounded by industrial architecture in the background under a cloudy sky." loading="eager">
             </figure>
         </section>
         <div>
@@ -58,52 +57,69 @@
         </ul>
         <section class="shopping-cart" id="shopping-cart-id">
             <h2>Varukorgssammantställning</h2>
-            <ul id="cart"> Din varukorg är tom
+            <ul id="cart"> 
+                <li>Din varukorg</li>
             </ul>
         </section>
         <section class="contact-details hidden">
             <h2>Kunduppgifter</h2>
             <form>
-                <label>Förnamn:
-                    <input type="text" id="first-name">
-                </label>
-                <span id="error-message-first-name" class="hidden"> ⛔ You must give us a first name;</span>
-                <label>Efternamn:
-                    <input type="text" id="last-name">
+                <div>
+                    <label>Förnamn:
+                        <input type="text" id="first-name">
+                    </label>
+                    <span id="error-message-first-name" class="hidden"> ⛔ You must give us a first name</span>
+                </div>
+                <div>                
+                    <label>Efternamn:
+                        <input type="text" id="last-name">
+                    </label>
                     <span id="error-message-last-name" class="hidden"> ⛔ You must give us a last name</span>
-                </label>
-                <label>Address:
-                    <input type="text" id="adress">
+                </div>
+                <div>
+                    <label>Address:
+                        <input type="text" id="adress">
+                    </label>
                     <span id="error-message-adress" class="hidden"> ⛔ You must give us an adress</span>
-                </label>
-                <label>Postnummer:
-                    <input type="number" id="post-number">
+                </div>
+                <div>
+                    <label>Postnummer:
+                        <input type="number" id="post-number">
+                    </label>
                     <span id="error-message-post-number" class="hidden">⛔ You must give us a valid post-number</span>
-                </label>
-                <label>Postort:
-                    <input type="text" id="post-county">
-                    <span id="error-message-post-county" class="hidden">⛔ You must give us a valid post-number</span>
-                </label>
-                <label>ev.Portkod:
-                    <input type="text" id="port-code">
-                </label>
-                <label>Telefon(mobil):
-                    <input type="text" id="phone-number">
+                </div>
+                <div>
+                    <label>Postort:
+                        <input type="text" id="post-county">
+                    </label>
+                    <span id="error-message-post-county" class="hidden">⛔ You must give us a post-county</span>
+                </div>
+                <div>
+                    <label>ev.Portkod:
+                        <input type="text" id="port-code">
+                    </label>
+                </div>
+                <div>
+                    <label>Telefon(mobil):
+                        <input type="text" id="phone-number">
+                    </label>
                     <span id="error-message-phone-number" class="hidden">⛔ You must give us a valid phone number</span>
-                </label>
-                <label>Epostadress:
-                    <input type="text" id="email-adress">
+                </div>
+                <div>
+                    <label>Epostadress:
+                        <input type="text" id="email-adress">
+                    </label>
                     <span id="error-message-email-adress" class="hidden">⛔ You must give us a valid email adress</span>
-                </label>
+                </div>
             </form>
             <section class="payment-section">
                 <h2>Val av betalsätt:</h2>
                 <div class="payment-choice">
                     <label>
-                        <input type="radio" name="payment-option" value="invoice"></input> 
+                        <input type="radio" name="payment-option" value="invoice">
                     </label>: Faktura
                     <label>
-                        <input type="radio" name="payment-option" value="card" checked></input>
+                        <input type="radio" name="payment-option" value="card" checked>
                     </label>: Kort
                 </div>
                 <div class="invoice hidden" id="invoice-id">
@@ -113,30 +129,29 @@
                     </label>
                 </div>
                 <div class="card" id="card-id">
-                    <label>
-                        <span>Kortnummer</span>
-                        <input type="number" pattern="[0-9\s]{13,19}" placeholder="xxxx xxxx xxxx xxxx" id="card-number">
+                    <label>Kortnummer:
+                        <input type="tel" pattern="[0-9\s]{13,19}" placeholder="xxxx xxxx xxxx xxxx" id="card-number">
                     </label>
-                    <label>
-                        <span>Datum</span>
-                        <span>
-                            <input type="number" class="small-input" id="card-year" placeholder="YY">/<input type="numer" class="small-input" id="card-month" placeholder="MM"> 
-                        </span>
-                    </label>
-                    <label>
-                        <span>CVC</span>
+                    <div class="card-date">
+                        <span>Datum:</span>
+                        <label>
+                            <input type="number" class="small-input" id="card-year" placeholder="YY">
+                        </label>
+                        <label>
+                            <input type="number" class="small-input" id="card-month" placeholder="MM"> 
+                        </label>
+                    </div>
+                    <label>CVC:
                         <input type="number" id="card-cvc" placeholder="***">
                     </label>
                 </div>
             </section>
             <div class="checkbox-container">
-                    <label>
+                    <label>Jag godkänner behandlingen av mina personuppgifter
                         <input type="checkbox" id="consent-checkbox">
-                        <p>Jag godkänner behandlingen av mina personuppgifter</p>
                     </label>
-                    <label>
-                        <input type="checkbox" id="newsletter-checkbox"checked>
-                        <p>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!</p>
+                    <label>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!
+                        <input type="checkbox" id="newsletter-checkbox" checked>
                     </label>
             </div>
             <div class="last-choice">

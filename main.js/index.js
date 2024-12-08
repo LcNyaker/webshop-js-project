@@ -29,7 +29,6 @@ const lastNameInput = document.querySelector('#last-name');
 const adressInput = document.querySelector('#adress');
 const postNumberInput = document.querySelector('#post-number');
 const postCountyInput = document.querySelector('#post-county');
-// const portCodeInput = document.querySelector('#port-code'); kräver ingen valdering, därför onödig
 const phoneNumberInput = document.querySelector('#phone-number');
 const emailAdressInput = document.querySelector('#email-adress');
 const cardNumberInput = document.querySelector('#card-number');
@@ -55,13 +54,6 @@ const inputs = [
     consentCheckbox,
     personalID
 ];
-
-
-if (today.getDay() === 4 ) { /////////////testar att det är korrekt
-    console.log("idag är det torsdag");
-} else {
-    console.log('idag är det inte torsdag');
-}
 
 function addedWeekendPrice() {
     if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) { // if-satsen förklarar att om variabel Isfriday(fredag) och klockan är mer eller lika med 15:00 ELLLER(||) variabel isMonday(måndag) och klockan är mindre än 03:00 så---> 
@@ -98,7 +90,7 @@ function increaseProductCount(event) {
         products[foundProductIndex].discountedPrice = products[foundProductIndex].price; // Återställ pris om mängden är mindre än 10
     }
 
-    header.style.position = 'sticky';
+    cartBtn.style.position = 'fixed';
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -182,7 +174,7 @@ function printProductList() {
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
-            <img class="product-img" src="${product.img.url}">
+            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
             <p>betyg:${getRatingHtml(product.rating)}</p>
@@ -255,12 +247,12 @@ function printCartProduct() {
             productCart.innerHTML += `
             <li class="added-product"
                 <figure>
-                    <img class="added-product-img" src="${product.img.url}">
+                    <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}">
                 </figure>
                 <div>
                     <p>${product.name}</p>
                 </div>
-                    <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p>
+                <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p>
                 <label>
                     <button class="increase" id="increase-${product.id}">▲</button>
                     <span>${product.amount}</span>
@@ -356,6 +348,7 @@ function showLastPage() {
         behavior: 'smooth' // Lägger till mjuk scrollning
       });  
     header.style.position = 'static';
+    cartBtn.style.position = 'static';
     firstNameInput.focus();
     
 }
