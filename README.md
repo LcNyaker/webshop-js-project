@@ -32,7 +32,7 @@ A11Y report:
 
 ⬇️Lighthouse⬇️
 
-![Lighthouse results part 1] assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png
+![Lighthouse results part 1] (assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png)
 
 ![Lighthouse results part 2] assets/lighthouse-report/lighthouse-png/Lighthouse-report-2.png
 
