@@ -1,28 +1,49 @@
 //import av product array
 import products from "../products.mjs";
 
-//Hämtar specifik UL tagg från HTML
+// Hämtar specifik UL tagg från HTML
 const header = document.querySelector('#header');
 const productListUl = document.querySelector('#product-list');
 const productCart = document.querySelector('#cart');
 const cartBtn = document.querySelector('#shopping-cart-button');
+const cartCounter = document.querySelector('#shopping-cart-counter');
+console.log(cartCounter);
 
-///Variablar för datum////
+// Variablar för datum
 const today = new Date();
-const shippingDate = new Date(today);
-const isFriday = today.getDay() === 5; 
-const isMonday = today.getDay() === 1;
-const currentHour = today.getHours();
+const shippingDate = new Date(today); 
 
-
+// Global variabel för pris
 let globalFinalSum = 0;
-let reservedProductsAmount = 0;
-let invoiceDisable = false;
 
+// Global variabel för valda produkter
+let reservedProductsAmount = 0;
+
+// Variabel för prishöjning för helg
 let priceIncreased = addedWeekendPrice();
 
+// Variabel för att aktivera/avaktivera faktura
+let invoiceDisable = false;
+
+// Variabel för prissäkning - mängdrabatt
 let amountDiscount = false
 
+// Filter knappar
+const btnPrice = document.querySelector('#sort-price');
+const btnName = document.querySelector('#sort-name');
+const btnRating = document.querySelector('#sort-rating');
+const btnCategory = document.querySelector('#sort-category');
+
+
+// RegEx variablar
+const postNumberRegEx = new RegExp(/^\d{3}\s?\d{2}$/);
+const phoneNumberRegEx = new RegExp(/^((\+46\s?7)|07)[02369]\s?\d{4}\s?\d{3}$/);
+const emailAdressRegEx = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+const personalIdRegEx = new RegExp(/^(19|20)?(\d{6}([-+]|\s)\d{4}|(?!19|20)\d{10})$/); // regex för svenska personnummer
+const cardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/);
+
+
+// Variablar för alla inputsfält gällande kontaktuppgifter
 const lastPage = document.querySelector('.contact-details')
 const firstNameInput = document.querySelector('#first-name');
 const lastNameInput = document.querySelector('#last-name');
@@ -39,6 +60,7 @@ const consentCheckbox = document.querySelector('#consent-checkbox');
 const newsletterCheckbox = document.querySelector('#newsletter-checkbox');
 const personalID = document.querySelector('#personal-id');
 
+// Ovanstående variablar lagda i en array
 const inputs = [
     firstNameInput,
     lastNameInput,
@@ -55,13 +77,58 @@ const inputs = [
     personalID
 ];
 
+// Variablar för alla felmeddelande gällande kontaktuppgifter 
+const errorMsgFirstName = document.querySelector('#error-message-first-name');
+const errorMsgLastName = document.querySelector('#error-message-last-name');
+const errorMsgAdress = document.querySelector('#error-message-adress');
+const errorMsgPostNumber = document.querySelector('#error-message-post-number');
+const errorMsgPostCounty = document.querySelector('#error-message-post-county');
+const errorMsgPhoneNumber = document.querySelector('#error-message-phone-number');
+const errorMsgEmailAdress = document.querySelector('#error-message-email-adress');
+const errorMsgPersonalID = document.querySelector('#error-message-personal-id')
+
+/////////////////////////////////Faktura eller Kort/////////////////////////////////////
+const paymentRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
+
+// Vardera container för invoice och card
+const invoiceOption = document.querySelector('#invoice-id'); 
+const cardOption = document.querySelector('#card-id'); 
+
+//card är vald som default bland de två radiobuttons
+let selectedPaymentoption = 'card'; 
+
+// Variabel för meddelande om faktura
+const errorMessage = document.createElement('p');
+errorMessage.id = 'error-invoice';
+errorMessage.innerHTML = 'Tyvärr kan vi inte erbjuda faktura som <br> betalningsalternativ för belopp på 800 kr eller mer.';
+
+// Knappar längst ner på sidan för att beställa ordern och avbryta beställning
+const orderBtn = document.querySelector('#order-button'); //beställningsknappen
+const cancelBtn = document.querySelector('#cancel-button'); //Avbryt beställningsknapp
+
+
 function addedWeekendPrice() {
-    if ((isFriday && currentHour >= 15) || (isMonday && currentHour <= 3)) { // if-satsen förklarar att om variabel Isfriday(fredag) och klockan är mer eller lika med 15:00 ELLLER(||) variabel isMonday(måndag) och klockan är mindre än 03:00 så---> 
-        console.log("Nu är det helg");
-        return 1.15
+    const now = new Date();
+    const day = now.getDay();
+    const hour = now.getHours();
+
+    if (day === 5 && hour >= 15) { //Kontrollerar om det är fredag och mer än kl 15
+        return 1.15;
     }
+
+    if (day === 6) { //Kontrollerar om det är lördag
+        return 1.15;
+    }
+    if (day === 0) { // Kontrollerar om det är söndag
+        return 1.15;
+    }
+    if (day === 1 && hour < 3) { // Kollar om det är måndag
+        return 1.15;
+    }
+
+    // om det inte uppfyller ovanstående påståenden så returneras gånger 1 för priset på produkten
     return 1;
-} 
+}
 
 // funktionen ansvarar för att visa betyg på produkterna, börjar med att skapa en tom strän 
 function getRatingHtml(rating) {
@@ -74,10 +141,8 @@ function getRatingHtml(rating) {
 
 function increaseProductCount(event) {
     const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
-    //console.log('clicked on button with id', productId);
     //letar rätt på produkten i arrayen som har id 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-    //console.log('found product at index:', foundProductIndex);
 
     products[foundProductIndex].amount += 1;
 
@@ -100,7 +165,6 @@ function increaseProductCount(event) {
 }
 
 function decreaseProductCount(event) {
-    //console.log("click on decrease");
     const productId = (event.target.id.replace('decrease-', '')); //byter ut strängarna i när man trycker på knappen mot '' 
 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
@@ -135,6 +199,8 @@ function updateProductAmountFromInput(e) {
             alert("Vänligen ange ett giltigt antal."); // Hantera ogiltiga värden
             e.target.value = products[foundProductIndex].amount; // Återställ till tidigare värde
             return;
+        } else { 
+            cartBtn.style.position = 'fixed';
         }
 
         // Uppdatera produktens mängd
@@ -158,7 +224,6 @@ function updateProductAmountFromInput(e) {
 
 }  
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////Funktion som visar alla produkter på hemsidan////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +239,7 @@ function printProductList() {
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
-            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy">
+            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
             <p>betyg:${getRatingHtml(product.rating)}</p>
@@ -186,7 +251,6 @@ function printProductList() {
         </li>
         `;
     });
-
 
     //skapar variablar för alla minus och plus knappar 
     //Alla knappar behöver ett clickevent och en funktion för att något ska ske
@@ -214,8 +278,6 @@ function printProductList() {
 //printar/uppdaterar listan med alla produkter på nytt
 printProductList ();
 
-
-
 //////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////Varukorgssammanställning////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -223,7 +285,7 @@ printProductList ();
 
 function printCartProduct() {
 
-
+    const today = new Date();
     let sum = 0; // Totalsumman startar på 0 
     let shipping = 25; //Fraktkostnad 25kr
     let mondaySaleMessage = ''; 
@@ -263,6 +325,8 @@ function printCartProduct() {
             `;
 
             cartBtn.classList.add('button-animate');
+            cartCounter.innerHTML = `${reservedProductsAmount}`;
+            cartCounter.classList.remove('hidden');
 
             // Ta bort klassen efter animationen är klar
             setTimeout(() => {
@@ -305,11 +369,13 @@ function printCartProduct() {
                         <li class="cart-summary-message"> 🛻 Fraktpris: + ${Math.round(shippingPrice)} kr</li>
                     </ul>
                     <h3>Totalsumma: ${finalSum} kr</h3>
-                    <button class="onward" href="#contact-details-id">Gå vidare</button>  
+                    <button class="onward" href="#contact-details-id" aria-label="Gå vidare till kontaktuppgifter">Gå vidare</button>  
                 </section>
             </li>`
         } else {
             productCart.innerHTML = 'Din varukorg är tömd';
+            cartBtn.style.position = 'static';
+            cartCounter.classList.add('hidden');
             lastPage.classList.add('hidden'); //håller sista delen av sidan hidden.
         }
 
@@ -353,9 +419,7 @@ function showLastPage() {
     
 }
 
-const errorMessage = document.createElement('p');
-errorMessage.id = 'error-invoice';
-errorMessage.innerHTML = 'Tyvärr kan vi inte erbjuda faktura som <br> betalningsalternativ för belopp på 800 kr eller mer.';
+
 /*
 **funktionen låser fältet för personnummer och lämnar ett meddelande till användaren
 */
@@ -384,13 +448,6 @@ function enableInvoice() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////Filter///////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
-const btnPrice = document.querySelector('#sort-price');
-const btnName = document.querySelector('#sort-name');
-const btnRating = document.querySelector('#sort-rating');
-const btnCategory = document.querySelector('#sort-category');
 btnPrice.addEventListener('click', sortOnPrice);
 btnName.addEventListener('click', sortOnName);
 btnRating.addEventListener('click', sortOnRating);
@@ -424,38 +481,12 @@ function sortOnCategory() {
     printProductList();
 }
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////formulär/////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////Faktura eller Kort/////////////////////////////////////
-
-const paymentRadios = Array.from(document.querySelectorAll('input[name="payment-option"]'));
-
-
-
-
-//Vardera container för invoice och card
-const invoiceOption = document.querySelector('#invoice-id'); 
-const cardOption = document.querySelector('#card-id'); 
-
-let selectedPaymentoption = 'card'; ///card är vald som default bland de två radiobuttons
-
-const orderBtn = document.querySelector('#order-button'); //beställningsknappen
-const cancelBtn = document.querySelector('#cancel-button'); //Avbryt beställningsknapp
 
 orderBtn.addEventListener('click', acceptOrder);
 cancelBtn.addEventListener('click', cancelOrder);
-
-// RegEx variablar
-const postNumberRegEx = new RegExp(/^\d{3}\s?\d{2}$/);
-const phoneNumberRegEx = new RegExp(/^((\+46\s?7)|07)[02369]\s?\d{4}\s?\d{3}$/);
-const emailAdressRegEx = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
-const personalIdRegEx = new RegExp(/^(19|20)?(\d{6}([-+]|\s)\d{4}|(?!19|20)\d{10})$/); // regex för svenska personnummer
-const cardNumberRegEx = new RegExp(/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/);
-
 
 // Alla inputs behöver event listeners
 inputs.forEach(input => {
@@ -471,6 +502,23 @@ paymentRadios.forEach(radioBtn => {
     radioBtn.addEventListener('change', switchPaymentMethod);
 });
 
+// för t12t så behöver man kunna fylla i eller ur checkboxar med enter
+newsletterCheckbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+    newsletterCheckbox.checked = !newsletterCheckbox.checked;
+    }
+  });
+
+consentCheckbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+    consentCheckbox.checked = !consentCheckbox.checked;
+    }
+  });
+
+
+/*
+** Funktionen för att visa upp eller gömma alternativ för faktura och kort
+*/
 function switchPaymentMethod(e) {
     invoiceOption.classList.toggle('hidden');
     cardOption.classList.toggle('hidden');
@@ -478,21 +526,6 @@ function switchPaymentMethod(e) {
     selectedPaymentoption = e.target.value;
     console.log(selectedPaymentoption);
 };
-
-// för t12t så behöver man kunna fylla i eller ur checkboxar med enter
-newsletterCheckbox.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-    newsletterCheckbox.checked = !newsletterCheckbox.checked;
-    console.log('Enter trycktes!');
-    }
-  });
-
-consentCheckbox.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-    consentCheckbox.checked = !consentCheckbox.checked;
-    console.log('Enter trycktes!');
-    }
-  });
 /*
 ** Funktionen returnerar jämförelsen av regEx och inputens värde
 */
@@ -511,50 +544,67 @@ function activateOrderBtn() {
     if (!firstNameInput.value.trim()) {
         console.warn('First name is mandatory')
         errorMsgFirstName.classList.remove('hidden');
+        firstNameInput.style.borderColor = 'red';
         return;
-    } else {errorMsgFirstName.classList.add('hidden');    
+    } else {errorMsgFirstName.classList.add('hidden');  
+        firstNameInput.style.borderColor = 'black'; 
     }
     if (!lastNameInput.value.trim()) {
         console.warn('Last name is mandatory')
         errorMsgLastName.classList.remove('hidden');
+        lastNameInput.style.borderColor = 'red';
         return;
-    } else {errorMsgLastName.classList.add('hidden');    
+    } else {errorMsgLastName.classList.add('hidden');
+        lastNameInput.style.borderColor = 'black';    
     }
     if (!adressInput.value.trim())  {
         console.warn('We need an adress for the delivery')
         errorMsgAdress.classList.remove('hidden');
+        adressInput.style.borderColor = 'red';
         return;
-    } else {errorMsgAdress.classList.add('hidden');    
+    } else {errorMsgAdress.classList.add('hidden');
+        adressInput.style.borderColor = 'black';    
     }
     if (postNumberRegEx.exec(postNumberInput.value) === null) {
         console.warn('Postnumber doesnt exist')
         errorMsgPostNumber.classList.remove('hidden');
+        postNumberInput.style.borderColor = 'red';  
         return;
-    } else {errorMsgPostNumber.classList.add('hidden');    
+    } else {errorMsgPostNumber.classList.add('hidden');
+        postNumberInput.style.borderColor = 'black';    
     }
     if (!postCountyInput.value.trim()) {
         console.warn('Dont forget to fill in county')
         errorMsgPostCounty.classList.remove('hidden');
+        postCountyInput.style.borderColor = 'red';  
         return;
-    } else {errorMsgPostCounty.classList.add('hidden');    
+    } else {errorMsgPostCounty.classList.add('hidden');
+        postCountyInput.style.borderColor = 'black';      
     }
     if (phoneNumberRegEx.exec(phoneNumberInput.value) === null) {
         console.warn('Phonenumber not valid')
         errorMsgPhoneNumber.classList.remove('hidden');
+        phoneNumberInput.style.borderColor = 'red';  
         return;
-    } else {errorMsgPhoneNumber.classList.add('hidden');    
+    } else {errorMsgPhoneNumber.classList.add('hidden');
+        phoneNumberInput.style.borderColor = 'black';    
     }
     if (emailAdressRegEx.exec(emailAdressInput.value) === null) {
         console.warn('Email is not valid');
         errorMsgEmailAdress.classList.remove('hidden');
+        emailAdressInput.style.borderColor = 'red';
         return;
-    } else {errorMsgEmailAdress.classList.add('hidden');    
+    } else {errorMsgEmailAdress.classList.add('hidden'); 
+        emailAdressInput.style.borderColor = 'black';   
     }
     if (selectedPaymentoption === 'invoice' && !validatePersonalId()) {
         console.warn('Personnummer är inkorrekt');
+        errorMsgPersonalID.classList.remove('hidden');
+        personalID.style.borderColor = 'red'; 
         return;
+    } else {errorMsgPersonalID.classList.add('hidden');
+        personalID.style.borderColor = 'black'; 
     }
-    
     if (selectedPaymentoption === 'card') {
         if (cardNumberRegEx.exec(cardNumberInput) === null) {
             console.warn('kortnummer är inte giltligt!');
@@ -600,12 +650,12 @@ function tooSlow() {
 
 function shipping() { //Denna funktion räknar ut leveransdatum, genom att ta dagens veckodag, och addera ifall det är måndag eller tisdag för att utesluta leverans på helgen
 
-    const day = today.getDay();
+    const today = new Date();
 
-    if (day === 1) {
+    if (today.getDay === 1) {
     shippingDate.setDate(today.getDate() + 7)
     }
-    else if (day === 2) {
+    else if (today.getDay === 2) {
     shippingDate.setDate(today.getDate() + 6)
     } else {
         shippingDate.setDate(today.getDate() + 5)
@@ -620,7 +670,7 @@ function acceptOrder() {
     alert(`Din order är mottagen och hanteras.
     
     Kvitto: 
-    - Dagens datum: ${today.toLocaleDateString('sv-SE', showCaseDate)}.
+    - Beställning gjordes: ${today.toLocaleDateString('sv-SE', showCaseDate)}.
     - Din beställning innehåller sammanlagt ${reservedProductsAmount} produkter.
     - Totalbeloppet på din beställning landade på ${globalFinalSum} kr. 
     - Förväntad leveranstid är ${shippingDate.toLocaleDateString('sv-SE', showCaseDate)}.
@@ -668,10 +718,3 @@ function cancelOrder() {
     printCartProduct();
 }
 
-const errorMsgFirstName = document.querySelector('#error-message-first-name');
-const errorMsgLastName = document.querySelector('#error-message-last-name');
-const errorMsgAdress = document.querySelector('#error-message-adress');
-const errorMsgPostNumber = document.querySelector('#error-message-post-number');
-const errorMsgPostCounty = document.querySelector('#error-message-post-county');
-const errorMsgPhoneNumber = document.querySelector('#error-message-phone-number');
-const errorMsgEmailAdress = document.querySelector('#error-message-email-adress');
