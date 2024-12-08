@@ -19,7 +19,16 @@ https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
 
 
 ## Screenshots
-![Min bild] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png)
+
+Validation reports: 
+
+⬇️For HTML⬇️
+![Validator report for HTML] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_html.png)
+
+⬇️For CSS⬇️
+![Validator report for CSS] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png)
+
+
 
 
 ## Tech Stack
