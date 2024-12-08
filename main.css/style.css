@@ -99,15 +99,14 @@ body {
   background-color: #2f4858
 }
 header {
-  position: sticky;
+  position: relative;
   top: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: 200px;
+  min-height: 150px;
   margin-top: 20px;
-  padding-right: 50px;
   border-radius: 10%;
   border: 3px solid black;
   background-color: #d8d4bf;
@@ -118,24 +117,33 @@ header {
   max-height: 100px;
 }
 h1 {
+  position: relative;
   text-align: center;
   font-family: "Lily Script One", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 3rem;
+  margin-right: 20px;
+  z-index: 1;
 }
 header section p {
   justify-self: center;
 }
-#shopping-cart-button {
+.shopping-cart-button {
+  position: fixed;
   width: 100px;
-  height: 100px;
+  min-height: 100px;
+  top: 30px;
+  right: 15px;
   color: black;
-  background-color: #d8d4bf;
+  background-color: #d8d4bf;;
   border-radius: 50%;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
 }
 .material-symbols-outlined {
+  position: relative;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -144,12 +152,9 @@ header section p {
   text-decoration: none;
   color: black;
 }
-
-/* Applicera animationen för knappen*/
 .button-animate {
   animation: greenPulse 0.9s ease-in-out;
 }
-
 .about-us {
   display: flex;
   flex-direction: column;
@@ -169,8 +174,9 @@ header section p {
   padding: 10px;
 }
 .factory-img {
-  min-width: 400px;
-  height: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: cover; 
   border: 3px solid black;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -205,12 +211,28 @@ header section p {
 }
 .product-img {
   width: 300px;
-  height: 300px;
+  min-height: 300px;
   display: block;
   border-radius: 15px;
   border: 3px solid black;
 }
+.product-container label {
+  display: flex;
+  align-content: center;
+  gap: 5px;
+}
+.product-container button {
+  min-height: 50px;
+  min-width: 50px;
+  font-size: 2.5rem;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+}
 .product-container input {
+  min-height: 50px;
+  text-align: center;
+  border-radius: 15px;
   appearance: default;
 }
 .shopping-cart {
@@ -220,7 +242,7 @@ header section p {
   color: white;
 }
 #cart {
-  height: auto;
+  min-height: auto;
   border-radius: 15px;
   border: 3px solid black;
   background-color: #d8d4bf;
@@ -234,24 +256,27 @@ header section p {
   grid-column: span 3;
 }
 .added-product {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 40px;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   border-bottom: 2px solid black;
+}
+.shopping-cart ul {
+  padding-left: 0;
+}
+.shopping-cart ul li {
+  list-style: none;
 }
 .shopping-cart ul li:last-child {
   border: none;
 }
 .added-product-img {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
+  display: none;
 }
 .added-product div {
-  width: 200px;
+  grid-column: span 3;
 }
 .added-product label {
   display: flex;
@@ -267,24 +292,33 @@ header section p {
 .cart-summary div {
   display: flex;
   align-items: center;
-  height: 50px;
-  margin-right: 40px;
+  min-height: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
   border-bottom: 2px solid black;
 }
+.cart-summary div label {
+  margin-left: 10px;
+}
 .cart-summary section{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  text-align: center;
   align-items: center;
-  height: 100px;
+  min-height: 100px;
 }
 .cart-summary section ul {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  grid-column: span 1 / 2;
+  padding-left: 30px;
+}
+.cart-summary section h3 {
+  grid-column: span 7;
+}
+.cart-summary section button {
+  grid-column: span 1 / 10;
 }
 .onward {
-  height: 50px;
+  min-height: 50px;
   margin-right: 20px;
   border-radius: 10px;;
   background-color: lightgreen;
@@ -305,24 +339,28 @@ header section p {
   background-color: #d8d4bf;
 }
 .contact-details form {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
 }
-.contact-details form label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1 4 45%;
-  margin-top: 30px;
-  margin-bottom: 40px;
+.contact-details form div {
+  display: contents;
 }
-.contact-details form label input {
-  margin-left: 10px;
+.contact-details form div label {
+  grid-column: 1 / 2;
+  text-align: left;
+  font-size: 1.2rem;
+  margin-top: 20px;
 }
-.contact-details form label span {
-  font-size: larger;
+.contact-details form div label input {
+  grid-column: 2 / 3; 
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.contact-details form div span {
+  font-size: large;
 }
 .payment-section { 
   display: flex;
@@ -331,7 +369,8 @@ header section p {
   border: 2px solid black;
   background-color: rgb(152, 213, 231);
   min-width: 450px;
-  height: 200px;
+  min-height: 200px;
+  margin-top: 40px;
 }
 .payment-choice {
   margin-top: 20px;
@@ -342,8 +381,21 @@ header section p {
   align-items: center;
   margin: 5px;
 }
+.card label input {
+  margin-left: 5px;
+}
+.card-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card-date span {
+  margin-right: 40%;
+}
 .small-input {
   width: 50px;
+  display: flex;
+  justify-content: flex-end;
 }
 .hidden {
   display: none;
@@ -351,15 +403,17 @@ header section p {
 .checkbox-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-top: 20px;
 }
 .checkbox-container label {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
 }
 .checkbox-container label input {
-  height: 20px;
+  min-height: 20px;
   width: 20px;
 }
 .last-choice {
@@ -367,7 +421,7 @@ header section p {
   justify-content: space-between;
 }
 .last-choice button {
-  height: 50px;
+  min-height: 50px;
   width: 200px;
   margin: 20px;
   border-radius: 10px;
@@ -396,6 +450,21 @@ header section p {
 }
 
 @media (min-width: 768px) {
+header {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-right: 50px;
+  }
+#shopping-cart-button {
+  position: relative;
+  display: flex;
+  border: none;
+}
+.factory-img {
+  min-width: 500px; 
+  min-height: 500px;
+}
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -405,9 +474,39 @@ header section p {
   min-width: 345px;
   margin: 10px;
 }
+.shopping-cart ul {
+  padding-left: 40px;
 }
-
-
+.added-product-img {
+  display: inline;
+  min-height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.added-product div {
+  grid-column: 2 / 3;
+}
+.added-product p {
+  grid-column: 4 / 5;
+}  
+.added-product label {
+  grid-column: 5 / 6;
+}
+.added-product p:last-child {
+  grid-column: 6 / 7;
+}
+.contact-details form {
+  grid-template-columns: repeat(2, 1fr);
+}
+.contact-details form div {
+  display: flex; 
+  flex-direction: column;
+}
+.contact-details form div label input {
+  width: 90%;
+}
+}
 @media (min-width: 1024px) {
    .about-us {
     flex-direction: row-reverse;
