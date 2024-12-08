@@ -28,6 +28,18 @@ Validation reports:
 ⬇️For CSS⬇️
 ![Validator report for CSS] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png)
 
+A11Y report: 
+
+⬇️Lighthouse⬇️
+
+![Lighthouse results part 1] assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png
+
+![Lighthouse results part 2] assets/lighthouse-report/lighthouse-png/Lighthouse-report-2.png
+
+![Lighthouse results part 3] assets/lighthouse-report/lighthouse-png/Lighthouse-report-3.png
+
+![Lighthouse results part 4] assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png
+
 
 
 
