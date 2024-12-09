@@ -23,22 +23,22 @@ https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
 Validation reports: 
 
 ⬇️For HTML⬇️
-![Validator report for HTML] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_html.png)
+![Validator report for HTML] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_html.png">
 
 ⬇️For CSS⬇️
-![Validator report for CSS] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png)
+![Validator report for CSS] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png">
 
 A11Y report: 
 
 ⬇️Lighthouse⬇️
 
-![Lighthouse results part 1] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png)
+![Lighthouse results part 1] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png">
 
-![Lighthouse results part 2] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-2.png)
+![Lighthouse results part 2] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-2.png">
 
-![Lighthouse results part 3] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-3.png)
+![Lighthouse results part 3] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-3.png">
 
-![Lighthouse results part 4] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png)
+![Lighthouse results part 4] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png">
 
 
 
