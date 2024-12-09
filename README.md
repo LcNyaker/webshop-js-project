@@ -38,7 +38,7 @@ A11Y report:
 
 ![Lighthouse results part 3] (https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-3.png)
 
-![Lighthouse results part 4] (/assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png)
+![Lighthouse results part 4] (assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png)
 
 
 
