@@ -242,7 +242,7 @@ function printProductList() {
             <img class="product-img" src="${product.img.url}" alt="${product.img.alt}">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
-            <p>betyg:${getRatingHtml(product.rating)}</p>
+            <p aria-description="Rated ${product.rating} out of 5" >betyg:${getRatingHtml(product.rating)}</p>
             <label>
                 <button class="decrease" id="decrease-${product.id}">-</button>
                 <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}">
