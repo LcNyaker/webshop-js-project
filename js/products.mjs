@@ -6,7 +6,6 @@ const products = [
         price: 16, 
         rating: 3, 
         category: 'plast 🧴',
-        discountPrice: null,    
         img: {
             url: 'assets/product-images/product-pluckymcstrumface.png',
             widht: 1024,
