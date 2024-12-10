@@ -56,16 +56,16 @@
         <div>
             <fieldset class="sort">
                 <legend>Sortera på</legend>
-                <label> Pris:
+                <label for="sort-price"> Pris:
                     <input type="radio" name="radio-buttons-sorting" id="sort-price" aria-label="Sortera efter pris">
                 </label>
-                <label> | Namn:
+                <label for="sort-name"> | Namn:
                     <input type="radio" name="radio-buttons-sorting" id="sort-name"  aria-label="Sortera efter namn">
                 </label>
-                <label> | Betyg:
+                <label for="sort-rating"> | Betyg:
                     <input type="radio" name="radio-buttons-sorting" id="sort-rating"  aria-label="Sortera efter betyg">
                 </label>
-                <label> | Kategori:
+                <label for="sort-category"> | Kategori:
                     <input type="radio" name="radio-buttons-sorting" id="sort-category"  aria-label="Sortera efter kategori">
                 </label>
             </fieldset>
@@ -82,48 +82,48 @@
             <h2>Kunduppgifter</h2>
             <form>
                 <div>
-                    <label>Förnamn:
+                    <label for="first-name">Förnamn:
                         <input type="text" id="first-name" aria-label="Ange ditt förnamn">
                     </label>
                     <span id="error-message-first-name" class="hidden"> ⛔ Du måste ge oss ett förnamn</span>
                 </div>
                 <div>
-                    <label>Efternamn:
+                    <label for="last-name">Efternamn:
                         <input type="text" id="last-name" aria-label="Ange ditt efternamn">
                     </label>
                     <span id="error-message-last-name" class="hidden"> ⛔ Du måste ge oss ett efternamn</span>
                 </div>
                 <div>
-                    <label>Address:
+                    <label for="adress">Address:
                         <input type="text" id="adress" aria-label="Ange din adress">
                     </label>
                     <span id="error-message-adress" class="hidden" > ⛔ Du måste ge oss en adress</span>
                 </div>
                 <div>
-                    <label>Postnummer:
+                    <label for="post-number">Postnummer:
                         <input type="number" id="post-number" aria-label="Ange ditt postnummer">
                     </label>
                     <span id="error-message-post-number" class="hidden">⛔ Du måste ge oss ett giltigt postnummer</span>
                 </div>
                 <div>
-                    <label>Postort:
+                    <label for="post-county">Postort:
                         <input type="text" id="post-county" aria-label="Ange din ort">
                     </label>
                     <span id="error-message-post-county" class="hidden">⛔ Du måste ge oss en ort</span>
                 </div>
                 <div>
-                    <label>ev.Portkod:
+                    <label for="port-code">ev.Portkod:
                         <input type="text" id="port-code" aria-label="Ange om du har portkod">
                     </label>
                 </div>
                 <div>
-                    <label>Telefon(mobil):
+                    <label for="phone-number">Telefon(mobil):
                         <input type="tel" id="phone-number" aria-label="Ange ditt telefonnummer">
                     </label>
                     <span id="error-message-phone-number" class="hidden">⛔ Du måste ge oss ett giltigt telefonnummer</span>
                 </div>
                 <div>
-                    <label>Epostadress:
+                    <label for="email-adress">Epostadress:
                         <input type="email" id="email-adress" aria-label="Ange din epostadress">
                     </label>
                     <span id="error-message-email-adress" class="hidden">⛔ Du måste ge oss en giltig e-postadress</span>
@@ -132,43 +132,43 @@
             <section class="payment-section">
                 <h2>Val av betalsätt:</h2>
                 <div class="payment-choice">
-                    <label>
+                    <label for="payment-option">
                         <input type="radio" name="payment-option" value="invoice" aria-label="Betala med faktura">
                     </label>: Faktura
-                    <label>
+                    <label for="payment-option">
                         <input type="radio" name="payment-option" value="card" aria-label="Betala med kort" checked>
                     </label>: Kort
                 </div>
                 <div class="invoice hidden" id="invoice-id">
-                    <label>
+                    <label for="personal-id">
                         <span>Personnummer</span>
                         <input type="text" id="personal-id" placeholder="YYYYMMDD-****" aria-label="Ange ditt personnummer, format: YYYYMMDD-****">
                     </label>
                     <span id="error-message-personal-id" class="hidden">⛔ Ditt personnummer är inte godkänt</span>
                 </div>
                 <div class="card" id="card-id">
-                    <label>Kortnummer:
+                    <label for="card-number">Kortnummer:
                         <input type="tel" pattern="[0-9\s]{13,19}" placeholder="xxxx xxxx xxxx xxxx" id="card-number" aria-label="Ange kortnummer">
                     </label>
                     <div class="card-date">
                         <span>Datum:</span>
-                        <label>
+                        <label for="card-year">
                             <input type="number" class="small-input" id="card-year" placeholder="YY" aria-label="Ange kortets utgångsår">
                         </label>
-                        <label>
+                        <label for="card-month">
                             <input type="number" class="small-input" id="card-month" placeholder="MM" aria-label="Ange kortets utgångsmånad">
                         </label>
                     </div>
-                    <label>CVC:
+                    <label for="card-cvc">CVC:
                         <input type="number" id="card-cvc" placeholder="***" aria-label="Ange CVC">
                     </label>
                 </div>
             </section>
             <div class="checkbox-container">
-                <label>Jag godkänner behandlingen av mina personuppgifter
+                <label for="consent-checkbox">Jag godkänner behandlingen av mina personuppgifter
                     <input type="checkbox" id="consent-checkbox" aria-label="Jag godkänner behandlingen av mina personuppgifter">
                 </label>
-                <label>Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!
+                <label for="newsletter-checkbox">Ja tack! jag vill ha nyhetsbrev ifrån Henkas Plektrumfabrik!
                     <input type="checkbox" id="newsletter-checkbox" aria-label="Jag vill ha nyhetsbrev från Henkas Plektrumfabrik!" checked>
                 </label>
             </div>

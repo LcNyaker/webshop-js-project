@@ -148,8 +148,6 @@ function increaseProductCount(event) {
     if (products[foundProductIndex].amount >= 10) {//produkten med specifik indexs mängd är likamed eller överstiger 10
         products[foundProductIndex].discountedPrice = products[foundProductIndex].price * 0.9; // Spara rabatterat pris
         amountDiscount = true;
-        console.log('Rabatten aktiverad');
-        console.log(amountDiscount);
     } else {
         products[foundProductIndex].discountedPrice = products[foundProductIndex].price; // Återställ pris om mängden är mindre än 10
     }
@@ -178,7 +176,6 @@ function decreaseProductCount(event) {
 
     if (products[foundProductIndex].amount < 10) {
         products[foundProductIndex].discountedPrice = products[foundProductIndex].price;
-        console.log('rabatten är avaktiverad')
         amountDiscount = false;
     }
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -189,7 +186,6 @@ function decreaseProductCount(event) {
 }
 function updateProductAmountFromInput(e) {
     const productId = Number(e.target.id.replace('input-', ''));
-    console.log(e.target.value)
 
     const foundProductIndex = products.findIndex(product => product.id == productId);
 
@@ -211,11 +207,9 @@ function updateProductAmountFromInput(e) {
         // Kontrollera om rabatt ska aktiveras eller avaktiveras
         if (newAmount >= 10) {
             products[foundProductIndex].discountedPrice = products[foundProductIndex].price * 0.9;
-            console.log('Rabatten aktiverad');
             amountDiscount = true;
         } else {
             products[foundProductIndex].discountedPrice = products[foundProductIndex].price;
-            console.log('Rabatten avaktiverad');
             amountDiscount = false;
         }
 
@@ -391,7 +385,6 @@ function printCartProduct() {
         decreaseButtons.forEach(button => {
         button.addEventListener('click', decreaseProductCount);
         });
-        console.log(finalSum);
         // Aktiverar funktionen som summan är 800kr eller mer
         if (finalSum > 800) {
             disableInvoice();
@@ -449,8 +442,8 @@ function enableInvoice() {
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////Filter///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////Filter//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 btnPrice.addEventListener('click', sortOnPrice);
 btnName.addEventListener('click', sortOnName);
@@ -461,27 +454,23 @@ btnCategory.addEventListener('click', sortOnCategory);
 function sortOnPrice() {
     // Sorterar produkterna i stigande ordning baserat på pris
     products.sort((a, b) => a.price - b.price);
-    console.log("Pris är valt");
 
     // Uppdaterar produktlistan med den sorterade listan
     printProductList();
 }
 
 function sortOnName() { 
-    products.sort((a, b) => a.name.localeCompare (b.name));
-    console.log ("Namn är vald");
+    products.sort((a, b) => a.name.localeCompare(b.name));
     printProductList();
 }
 
 function sortOnRating() {
     products.sort((b, a) => a.rating - b.rating);
-    console.log ("Betyg är vald");
     printProductList();
 }
 
 function sortOnCategory() {
-    products.sort((a, b) => a.category.localeCompare (b.category));
-    console.log ("Kategori är vald");
+    products.sort((a, b) => a.category.localeCompare(b.category));
     printProductList();
 }
 
@@ -528,7 +517,6 @@ function switchPaymentMethod(e) {
     cardOption.classList.toggle('hidden');
 
     selectedPaymentoption = e.target.value;
-    console.log(selectedPaymentoption);
 };
 /*
 ** Funktionen returnerar jämförelsen av regEx och inputens värde
