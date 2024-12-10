@@ -1,5 +1,5 @@
 //import av product array
-import products from "../products.mjs";
+import products from "/js/products.mjs";
 
 // Hämtar specifik UL tagg från HTML
 const header = document.querySelector('#header');
@@ -143,7 +143,7 @@ function increaseProductCount(event) {
     const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
     //letar rätt på produkten i arrayen som har id 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-
+    
     products[foundProductIndex].amount += 1;
 
     if (products[foundProductIndex].amount >= 10) {//produkten med specifik indexs mängd är likamed eller överstiger 10
@@ -246,7 +246,7 @@ function printProductList() {
             <label>
                 <button class="decrease" id="decrease-${product.id}" aria-label="Ta bort en vara">-</button>
                 <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}">
-                <button class="increase" id="increase-${product.id} aria-label="Lägg till en vara">+</button>
+                <button class="increase" id="increase-${product.id}" aria-label="Lägg till en vara">+</button>
             </label>
         </li>
         `;
