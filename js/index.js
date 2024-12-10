@@ -1,5 +1,5 @@
 //import av product array
-import products from "../products.mjs";
+import products from "/js/products.mjs";
 
 // Hämtar specifik UL tagg från HTML
 const header = document.querySelector('#header');
@@ -7,12 +7,11 @@ const productListUl = document.querySelector('#product-list');
 const productCart = document.querySelector('#cart');
 const cartBtn = document.querySelector('#shopping-cart-button');
 const cartCounter = document.querySelector('#shopping-cart-counter');
-console.log(cartCounter);
 
 // Variablar för datum
 const today = new Date();
 const shippingDate = new Date(today); 
-
+const showCaseDate = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 // Global variabel för pris
 let globalFinalSum = 0;
 
@@ -143,7 +142,7 @@ function increaseProductCount(event) {
     const productId = (event.target.id.replace('increase-', '')); //byter ut strängarna 
     //letar rätt på produkten i arrayen som har id 
     const foundProductIndex = products.findIndex(product => product.id == productId); //Eftersom den letar product.id är ett nummer och productId är en sträng så tillämpas = =, för att använda === måste strängen göras om till ett nummer
-
+    
     products[foundProductIndex].amount += 1;
 
     if (products[foundProductIndex].amount >= 10) {//produkten med specifik indexs mängd är likamed eller överstiger 10
@@ -156,6 +155,7 @@ function increaseProductCount(event) {
     }
 
     cartBtn.style.position = 'fixed';
+    cartCounter.style.position = 'absolute'
 
     //väljer ut inputen via dess Id och tar det värdet från arrayens amount.
     document.querySelector(`#input-${productId}`).value = products[foundProductIndex].amount;
@@ -190,6 +190,7 @@ function decreaseProductCount(event) {
 function updateProductAmountFromInput(e) {
     const productId = Number(e.target.id.replace('input-', ''));
     console.log(e.target.value)
+
     const foundProductIndex = products.findIndex(product => product.id == productId);
 
     if (e.key === "Enter") { // Kontrollera om användaren tryckt Enter
@@ -201,6 +202,7 @@ function updateProductAmountFromInput(e) {
             return;
         } else { 
             cartBtn.style.position = 'fixed';
+            cartCounter.style.position = 'absolute'
         }
 
         // Uppdatera produktens mängd
@@ -239,14 +241,14 @@ function printProductList() {
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
-            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}">
+            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
-            <p aria-description="Rated ${product.rating} out of 5" >betyg:${getRatingHtml(product.rating)}</p>
+            <p aria-description="Betyg ${product.rating} utav 5 möjliga" >betyg:${getRatingHtml(product.rating)}</p>
             <label>
-                <button class="decrease" id="decrease-${product.id}">-</button>
-                <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}">
-                <button class="increase" id="increase-${product.id}">+</button>
+                <button class="decrease" id="decrease-${product.id}" aria-label="Ta bort en vara av ${product.name}">-</button>
+                <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}" aria-label="Skriv eller justera värdet för ${product.name}">
+                <button class="increase" id="increase-${product.id}" aria-label="Lägg till en vara av ${product.name}">+</button>
             </label>
         </li>
         `;
@@ -255,23 +257,24 @@ function printProductList() {
     //skapar variablar för alla minus och plus knappar 
     //Alla knappar behöver ett clickevent och en funktion för att något ska ske
     const increaseButtons = document.querySelectorAll('button.increase'); 
+    
     increaseButtons.forEach(button => {
-    button.addEventListener('click', increaseProductCount)
+        button.addEventListener('click', increaseProductCount)
     });
 
     // Lägger till eventlyssnare för "decrease"-knappar
     const decreaseButtons = document.querySelectorAll('button.decrease');
+    
     decreaseButtons.forEach(button => {
-    button.addEventListener('click', decreaseProductCount);
+        button.addEventListener('click', decreaseProductCount);
     });
     
-
     const productAmountInputs = document.querySelectorAll('input.amount');
     productAmountInputs.forEach(input => {
 
-    input.addEventListener('change', updateProductAmountFromInput);
-    input.addEventListener('keypress', updateProductAmountFromInput);
-    })
+        input.addEventListener('change', updateProductAmountFromInput);
+        input.addEventListener('keypress', updateProductAmountFromInput);
+    });
 };
 
 
@@ -309,7 +312,7 @@ function printCartProduct() {
             productCart.innerHTML += `
             <li class="added-product"
                 <figure>
-                    <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}">
+                    <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy" >
                 </figure>
                 <div>
                     <p>${product.name}</p>
@@ -415,6 +418,7 @@ function showLastPage() {
       });  
     header.style.position = 'static';
     cartBtn.style.position = 'static';
+    cartCounter.style.position = 'static'
     firstNameInput.focus();
     
 }
@@ -664,8 +668,6 @@ function shipping() { //Denna funktion räknar ut leveransdatum, genom att ta da
 
 shipping();
 
-const showCaseDate = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-
 function acceptOrder() {
     alert(`Din order är mottagen och hanteras.
     
@@ -709,8 +711,6 @@ function cancelOrder() {
     });
     
     consentCheckbox.checked = false;
-
-    header.classList.remove('hidden');
 
     alert('Du valde att avbryta din order.');
 
