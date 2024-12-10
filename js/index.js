@@ -1,5 +1,5 @@
 //import av product array
-import products from "/js/products.mjs";
+import products from "./products.mjs";
 
 // Hämtar specifik UL tagg från HTML
 const header = document.querySelector('#header');
