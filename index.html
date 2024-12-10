@@ -142,25 +142,25 @@
                 <div class="invoice hidden" id="invoice-id">
                     <label>
                         <span>Personnummer</span>
-                        <input type="text" id="personal-id" placeholder="YYYYMMDD-****">
+                        <input type="text" id="personal-id" placeholder="YYYYMMDD-****" aria-label="Ange ditt personnummer, format: YYYYMMDD-****">
                     </label>
                     <span id="error-message-personal-id" class="hidden">⛔ Ditt personnummer är inte godkänt</span>
                 </div>
                 <div class="card" id="card-id">
                     <label>Kortnummer:
-                        <input type="tel" pattern="[0-9\s]{13,19}" placeholder="xxxx xxxx xxxx xxxx" id="card-number">
+                        <input type="tel" pattern="[0-9\s]{13,19}" placeholder="xxxx xxxx xxxx xxxx" id="card-number" aria-label="Ange kortnummer">
                     </label>
                     <div class="card-date">
                         <span>Datum:</span>
                         <label>
-                            <input type="number" class="small-input" id="card-year" placeholder="YY">
+                            <input type="number" class="small-input" id="card-year" placeholder="YY" aria-label="Ange kortets utgångsår">
                         </label>
                         <label>
-                            <input type="number" class="small-input" id="card-month" placeholder="MM">
+                            <input type="number" class="small-input" id="card-month" placeholder="MM" aria-label="Ange kortets utgångsmånad">
                         </label>
                     </div>
                     <label>CVC:
-                        <input type="number" id="card-cvc" placeholder="***">
+                        <input type="number" id="card-cvc" placeholder="***" aria-label="Ange CVC">
                     </label>
                 </div>
             </section>
