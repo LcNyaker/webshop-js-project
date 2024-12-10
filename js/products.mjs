@@ -8,7 +8,7 @@ const products = [
         category: 'plast 🧴',
         discountPrice: null,    
         img: {
-            url: 'assets/product-images/Product-PluckyMcStrumface.png',
+            url: './assets/product-images/Product-PluckyMcStrumface.png',
             widht: 1024,
             height: 1024, 
             alt: 'Ett orange transparent gitarrplektrum tillverkat i plast, med texten "Plucky McStrumFace" överst och "Plucky Guitar Pick" under en stiliserad glad smiley-ikon i mitten.',
