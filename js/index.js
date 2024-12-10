@@ -241,7 +241,7 @@ function printProductList() {
         productListUl.innerHTML += `
         <li class="product-container">
             <h3>${product.name}</h3>
-            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}">
+            <img class="product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
             <p aria-description="Betyg ${product.rating} utav 5 möjliga" >betyg:${getRatingHtml(product.rating)}</p>
@@ -312,7 +312,7 @@ function printCartProduct() {
             productCart.innerHTML += `
             <li class="added-product"
                 <figure>
-                    <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}">
+                    <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy" >
                 </figure>
                 <div>
                     <p>${product.name}</p>
