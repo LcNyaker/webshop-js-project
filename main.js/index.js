@@ -242,11 +242,11 @@ function printProductList() {
             <img class="product-img" src="${product.img.url}" alt="${product.img.alt}">
             <p>${product.category}</p>
             <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p> 
-            <p aria-description="Rated ${product.rating} out of 5" >betyg:${getRatingHtml(product.rating)}</p>
+            <p aria-description="Betyg ${product.rating} utav 5 möjliga" >betyg:${getRatingHtml(product.rating)}</p>
             <label>
-                <button class="decrease" id="decrease-${product.id}">-</button>
+                <button class="decrease" id="decrease-${product.id}" aria-label="Ta bort en vara">-</button>
                 <input class="amount" type="number" min="0" value="${product.amount}"id="input-${product.id}">
-                <button class="increase" id="increase-${product.id}">+</button>
+                <button class="increase" id="increase-${product.id} aria-label="Lägg till en vara">+</button>
             </label>
         </li>
         `;
@@ -271,7 +271,7 @@ function printProductList() {
 
     input.addEventListener('change', updateProductAmountFromInput);
     input.addEventListener('keypress', updateProductAmountFromInput);
-    })
+    });
 };
 
 
