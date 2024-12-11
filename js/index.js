@@ -308,7 +308,7 @@ function printCartProduct() {
                 <figure>
                     <img class="added-product-img" src="${product.img.url}" alt="${product.img.alt}" loading="lazy" >
                 </figure>
-                <div>
+                <div class="added-product-name">
                     <p>${product.name}</p>
                 </div>
                 <p>${Math.round(displayedPrice * priceIncreased)} kr/st</p>
@@ -321,13 +321,13 @@ function printCartProduct() {
             </li>
             `;
 
-            cartBtn.classList.add('button-animate');
+            cartCounter.classList.add('button-animate');
             cartCounter.innerHTML = `${reservedProductsAmount}`;
             cartCounter.classList.remove('hidden');
 
             // Ta bort klassen efter animationen är klar
             setTimeout(() => {
-                cartBtn.classList.remove('button-animate');
+                cartCounter.classList.remove('button-animate');
             }, 1000); // Samma tid som animationens varaktighet
         } 
         });
@@ -339,7 +339,7 @@ function printCartProduct() {
         } 
         
         if (amountDiscount === true) {
-            discountMessage += '🎉 Mängdrabatt: 10% rabatt vid köp av 10 samma produkter.'
+            discountMessage += '🎉 Mängdrabatt: 10% rabatt vid köp av 10 samma produkter'
         }
     
         let shippingPrice = shipping + (sum * 0.1); ////tar 10procent av summan och adderar till fraktkostnad   
