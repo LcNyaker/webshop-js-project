@@ -19,29 +19,41 @@ https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
 
 ## Screenshots
 
-Project in desktop-mode: 
+
+⬇️Project in desktop-mode⬇️ 
+
 
 ![Screenshot of desktop-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-desktop.png">
 
-Project in tablet-mode: 
+
+⬇️Project in tablet-mode⬇️ 
+
 
 ![Screenshot of tablet-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-tablet.png">
 
-Project in mobile-mode: 
+
+⬇️Project in mobile-mode⬇️ 
+
 
 ![Screenshot of mobile-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-mobile.png">
 
+
 Validation reports: 
+
 
 ⬇️For HTML⬇️
 ![Validator report for HTML] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_html.png">
 
+
 ⬇️For CSS⬇️
 ![Validator report for CSS] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/validation-report/validator.w3.org_nu_%20css.png">
 
+
 A11Y report: 
 
+
 ⬇️Lighthouse⬇️
+
 
 ![Lighthouse results] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png">
 
