@@ -184,6 +184,7 @@ function decreaseProductCount(event) {
     printProductList();
 
 }
+
 function updateProductAmountFromInput(e) {
     const productId = Number(e.target.id.replace('input-', ''));
 

@@ -172,9 +172,6 @@ header section p {
   text-align: center;
   background-color: black;
   color: white;
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
 }
 .about-us {
   display: flex;
@@ -311,7 +308,6 @@ header section p {
 .added-product-name{
   grid-column: span 3;
   word-wrap: break-word;
-  color: #0078D4;
 }
 .added-product label {
   display: flex;
