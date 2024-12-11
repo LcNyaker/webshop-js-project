@@ -1,3 +1,7 @@
+## 🚀 About Me
+I'm a student attending my first year of training as a Front End Developer
+
+I have no formal training or experience in coding since I started these studies.
 
 # Webshop - Henkas Plektrumfabrik
 
@@ -13,12 +17,19 @@ Therefore the project is meant to be examined by teacher aswell as other experie
 https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
 
 
-## Authors
-
-- [@LcNyaker](https://www.github.com/LcNyaker)
-
-
 ## Screenshots
+
+Project in desktop-mode: 
+
+![Screenshot of desktop-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-desktop.png">
+
+Project in tablet-mode: 
+
+![Screenshot of tablet-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-tablet.png">
+
+Project in mobile-mode: 
+
+![Screenshot of mobile-mode] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/showcase/printscreen-mobile.png">
 
 Validation reports: 
 
@@ -32,15 +43,7 @@ A11Y report:
 
 ⬇️Lighthouse⬇️
 
-![Lighthouse results part 1] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png">
-
-![Lighthouse results part 2] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-2.png">
-
-![Lighthouse results part 3] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-3.png">
-
-![Lighthouse results part 4] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-4.png">
-
-
+![Lighthouse results] <img src="https://github.com/Medieinstitutet/fed24d-js-intro-inl-1-webshop-LcNyaker/blob/main/assets/lighthouse-report/lighthouse-png/Lighthouse-report-1.png">
 
 
 ## Tech Stack
@@ -53,16 +56,12 @@ SASS ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&l
 
 Vanilla JavaScript ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
+## Authors
 
-## 🚀 About Me
-I'm a student attending my first year of training as a Front End Developer
-
-I have no formal training or experience in coding since I started these studies.
-
+- [@LcNyaker](https://www.github.com/LcNyaker)
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/LcNyaker)
-
 
 ## Other
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/P54kDXVP)
