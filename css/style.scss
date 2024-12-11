@@ -127,7 +127,7 @@ h1 {
   z-index: 1;
 }
 header section p {
-  justify-self: center;
+  text-align: center;
 }
 .shopping-cart-button {
   position: fixed;
@@ -186,6 +186,9 @@ header section p {
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+.about-us div h2 {
+  text-align: center;
 }
 .about-us div p {
   text-align: center;
