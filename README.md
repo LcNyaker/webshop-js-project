@@ -14,7 +14,7 @@ Therefore the project is meant to be examined by teacher aswell as other experie
 
 ⬇️Link to the live-version of this projekt⬇️
 
-https://medieinstitutet.github.io/fed24d-js-intro-inl-1-webshop-LcNyaker/
+https://lcnyaker.github.io/webshop-js-project/
 
 
 ## Screenshots
