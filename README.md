@@ -5,8 +5,6 @@ I have no formal training or experience in coding since I started these studies.
 
 # Webshop - Henkas Plektrumfabrik
 
-A brief description of what this project does and who it's for
-
 This is a project is built on knowlegde from a course based on javascript. The purpose to display  my understandig of the javascript as a beginner. 
 
 Therefore the project is meant to be examined by teacher aswell as other experienced coders of the javascript language, to be able to give feedback for improvements or problems in the code.
